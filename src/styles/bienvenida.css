@@ -1,0 +1,148 @@
+.bienvenida-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #05161a 0%, #072E33 100%);
+    padding: 2rem;
+}
+
+.bienvenida-content {
+    max-width: 1200px;
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+
+.logo-section {
+    margin-bottom: 2rem;
+}
+
+.logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 30px;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.title {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 3rem;
+    color: #ffc107;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin: 0;
+}
+
+.welcome-text {
+    margin-bottom: 3rem;
+}
+
+.welcome-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #ffc107, #ffd54f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.welcome-text p {
+    font-size: 1.2rem;
+    color: #ffffff;
+    opacity: 0.9;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.feature-card i {
+    font-size: 2.5rem;
+    color: #ffc107;
+    margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+.feature-card p {
+    color: #ffffff;
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+.cta-section {
+    margin-top: 2rem;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(45deg, #ffc107, #ffd54f);
+    color: #05161a;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+    color: #05161a;
+}
+
+.cta-button i {
+    transition: transform 0.3s ease;
+}
+
+.cta-button:hover i {
+    transform: translateX(5px);
+}
+
+@media (max-width: 768px) {
+    .bienvenida-container {
+        padding: 1rem;
+    }
+
+    .title {
+        font-size: 2.5rem;
+    }
+
+    .welcome-text h2 {
+        font-size: 2rem;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-card {
+        padding: 1.5rem;
+    }
+} 

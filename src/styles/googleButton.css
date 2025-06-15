@@ -1,0 +1,24 @@
+.btn-google {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 3%;
+    padding: 3%;
+    border: 0px;
+    border-radius: 20px;
+    background: linear-gradient(90deg,
+            #4285F4 0%,
+            #EA4335 25%,
+            #FBBC05 50%,
+            #34A853 75%,
+            #4285F4 100%
+        );
+        background-size: 200%;
+    transition: all ease 0.3s;
+}
+.btn-google:hover{
+    background-position: right;
+}
+.btn-google span{
+    font-size: 1.2rem;
+}

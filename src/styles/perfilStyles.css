@@ -1,0 +1,302 @@
+.special-label {
+    display: none;
+}
+hr{
+    height: 5px;
+    background-color: white;
+}
+/* Contenedor principal del perfil */
+.perfil-container {
+    display: flex;
+    min-height: 100%;
+    position: static;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0px 12px 12px 0px;
+    backdrop-filter: blur(10px);
+}
+
+.perfil-container form div{
+    height: fit-content;
+}
+/* Secciones del perfil */
+.perfil-container .info,
+.perfil-container section {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Títulos del perfil */
+.perfil-container h1,
+.perfil-container h3 {
+    color: #ffc107;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
+}
+
+/* Inputs y Selects del perfil */
+.perfil-container .form-control,
+.perfil-container .form-select,
+.perfil-container input:disabled {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.perfil-container .form-control:focus,
+.perfil-container .form-select:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #ffc107;
+    box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+    color: white;
+}
+
+/* Labels del perfil */
+.perfil-container label {
+    color: #ffffff;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+/* Botones del perfil */
+.perfil-container .btn {
+    border-radius: 8px;
+    padding: 0.5rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.perfil-container .btn-warning {
+    background: #ffc107;
+    border: none;
+    color: #000;
+}
+
+.perfil-container .btn-danger {
+    background: #dc3545;
+    border: none;
+}
+
+.perfil-container .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Acordeón de publicaciones del perfil */
+.perfil-container .accordion-item {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.perfil-container .accordion-button {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-weight: 500;
+}
+
+.perfil-container .accordion-button:not(.collapsed) {
+    background: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+}
+
+.perfil-container .accordion-button::after {
+    filter: invert(1);
+}
+
+/* Separadores del perfil */
+.perfil-container hr {
+    border-color: rgba(255, 255, 255, 0.1);
+    margin: 2rem 0;
+}
+
+/* Textarea del perfil */
+.perfil-container textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Checkbox del perfil */
+.perfil-container .form-check-input {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.perfil-container .form-check-input:checked {
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+/* Animaciones del perfil */
+@keyframes perfilFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.perfil-container .info,
+.perfil-container section {
+    animation: perfilFadeIn 0.5s ease-out forwards;
+}
+
+/* Responsive del perfil */
+@media (max-width: 768px) {
+    .perfil-container {
+        padding: 1rem;
+    }
+    
+    .perfil-container .info,
+    .perfil-container section {
+        padding: 1rem;
+    }
+    
+    .perfil-container .btn {
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+}
+
+/* Modal de Favoritos */
+.favorites-modal {
+    background: rgba(17, 25, 40, 0.95) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 20px !important;
+    color: white !important;
+    transition: all 0.3s ease;
+}
+
+.favorites-modal .modal-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+}
+
+.favorites-modal .modal-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.favorites-modal .modal-title i {
+    color: #ff4757;
+}
+
+.favorites-modal .modal-body {
+    padding: 1.5rem;
+}
+
+/* Items de Favoritos */
+.favorite-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.favorite-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.favorite-item h4 {
+    color: #f8b800;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.favorite-item p {
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.favorite-item i {
+    color: #f8b800;
+    margin-right: 0.5rem;
+}
+
+.favorite-item .badge {
+    background: linear-gradient(135deg, #ff7900 0%, #f8b800 100%);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.favorite-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    justify-content: flex-end;
+}
+
+.favorite-actions button {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.view-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.view-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.remove-btn {
+    background: rgba(255, 71, 87, 0.1);
+    color: #ff4757;
+}
+
+.remove-btn:hover {
+    background: rgba(255, 71, 87, 0.2);
+}
+
+/* Asegurar que el modal esté por encima de todo */
+.modal.show {
+    opacity: 1 !important;
+}
+
+.modal-dialog {
+    z-index: 10000 !important;
+}
+
+/* Overlay del Modal */
+.modal-backdrop.show {
+    opacity: 0.7;
+    backdrop-filter: blur(5px);
+    z-index: 9998 !important;
+}
+.perfil-container .btn-primary{
+    background-image: linear-gradient( 90deg, #11389e,#091c47) !important;
+    border: 0px;
+}
+.perfil-container .btn-danger{
+    background-image: linear-gradient( 90deg, #990000,#4d0000) !important;
+    border: 0px;    
+}
+.perfil-container .btn-warning{
+    background-image: linear-gradient( 90deg, #fc4d08,#c00000) !important;
+    border: 0px;
+}
+.perfil-container .btn-success{
+    background-image: linear-gradient( 90deg, #009929,#006414) !important;
+    border: 0px;
+}

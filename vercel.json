@@ -1,0 +1,9 @@
+{
+    "rewrites": [
+      {
+        "source": "/back/:path*",
+        "destination": "https://jobget-backend.onrender.com/:path*"
+      }
+    ]
+}
+  
