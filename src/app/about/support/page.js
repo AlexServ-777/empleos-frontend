@@ -2,8 +2,6 @@
 import React from 'react';
 import Link from 'next/link';
 
-export const dynamic = 'force-dynamic';
-
 export default function Support() {
     return (
         <div className="container py-5">

@@ -169,7 +169,7 @@ export default function FormsEmpleos({ empleo, userInf, refreshEmpleos }) {
                 <input className="form-check-input ms-2" type="checkbox" defaultChecked={empleo.isActive} name="isActive" />
             </div>
             <div className="pb-3 row mx-auto">
-                <button className="btn btn-warning col-md-4 col-12 mx-auto" onClick={(e) => {
+                <button className="btn btn-warning col-md-4 col-12 mx-auto text-white" onClick={(e) => {
                     e.preventDefault();
                     editarEmpleo(empleo.id_empleo);
                 }}>

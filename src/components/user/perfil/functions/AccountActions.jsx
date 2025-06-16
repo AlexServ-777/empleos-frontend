@@ -71,7 +71,7 @@ export default function AccountActions() {
             <div className='text-center' style={{display:"flex", gap:"5%", alignItems:"center", justifyContent:"center"}}>
                 <button
                     type='button'
-                    className="btn btn-warning wid-md-25"
+                    className="btn btn-warning wid-md-25 text-white"
                     onClick={async(e) => {
                         e.preventDefault();
                         await cerrarSesion()
@@ -81,7 +81,7 @@ export default function AccountActions() {
                 </button>
                 <button
                     type='button'
-                    className="btn btn-danger wid-md-25"
+                    className="btn btn-danger wid-md-25 text-white"
                     onClick={async(e) => {
                     e.preventDefault();
                     await eliminarUsuario();

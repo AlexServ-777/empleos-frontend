@@ -27,3 +27,6 @@ option{
 select{
   cursor: pointer;
 }
+.btn {
+  color: white;
+}

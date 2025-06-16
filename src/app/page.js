@@ -1,5 +1,6 @@
 import Home from "@/components";
 
+export const dynamic = 'force-dynamic';
 export default async function Page() {
     try {
         const pais = "Bolivia"

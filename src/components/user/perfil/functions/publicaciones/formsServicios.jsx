@@ -147,7 +147,7 @@ export default function FormsServicios({servicio, userInf, refreshServicios}){
                 <input className="form-check-input ms-2" type="checkbox" defaultChecked={servicio.isActive} name="isActive" />
             </div>
             <div className="row pb-3">
-                <button className="btn btn-warning col-12 col-md-4 mx-auto" onClick={(e) => {
+                <button className="btn btn-warning col-12 col-md-4 mx-auto text-white" onClick={(e) => {
                     e.preventDefault();
                     editarServicio(servicio.id_servicio);
                 }}>

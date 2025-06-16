@@ -1,6 +1,6 @@
 import OneServicio from "@/components/servicios/one";
 import { cookies } from "next/headers";
-
+export const dynamic = 'force-dynamic';
 export default async function Page({ params }) {
     const { id } = await params;
     const cookie = await cookies();
@@ -11,7 +11,7 @@ export default async function Page({ params }) {
     });
     const {token:csrfToken} = await resToken.json();
 
-    const response = await fetch(process.env.url_front+"/back/api/servicios-c/getServiciosOne/"+id);
+    const response = await fetch(process.env.url_front+"/back/api/servicios-c/getServicioOne/"+id);
     const data = await response.json();
 
     const initFavorito = async(servicio)=>{ //verificar si este empleo es favorito. return: true o false

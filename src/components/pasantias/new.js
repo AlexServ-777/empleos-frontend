@@ -15,6 +15,7 @@ export default function NewPasantia(){
     const router = useRouter();
     const {csrf} = useContext(Context);
     const [phone, setPhone] = useState("");
+    const [estados, setEstados] = useState([]);
 
     const publicarPasantia = async () => {
         if(!formRef.current.reportValidity()) return;
@@ -81,16 +82,14 @@ export default function NewPasantia(){
         <section className="container form-container mb-5">
             <h1 className="form-title">PUBLICAR PASANTÍA</h1>
             <form className="row g-4 p-4" ref={formRef}>
-                <FormBody setPhone={setPhone} publicarPasantia={publicarPasantia} phone={phone}/>
+                <FormBody setPhone={setPhone} publicarPasantia={publicarPasantia} phone={phone} estados={estados}/>
             </form>
         </section>
         </>
     );
 }
 
-function FormBody({setPhone, publicarPasantia, phone}){
-    const [estados, setEstados] = useState([]);
-    const {csrf} = useContext(Context);
+function FormBody({setPhone, publicarPasantia, phone, estados}){
     
     return (
         <>

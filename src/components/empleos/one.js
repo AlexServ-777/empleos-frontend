@@ -67,6 +67,13 @@ export default function OneEmpleo({empleo,favorito}){
             credentials:"include"
         });
         const data = await response.json();
+        if(response.status===401){
+            setAlertData({
+                message:"DEBES INICIAR SESION",
+                type:"warning",
+                show:"flex"
+            })
+        }
         if(data.statusCode === 400){
             const res2 = await fetch(urlBack+"/api/usuarios-c/deleteFavorito/"+data.id_favorito,{
                 method:"DELETE",
@@ -90,9 +97,9 @@ export default function OneEmpleo({empleo,favorito}){
     return (
     <>
     <SEO title={`${empleo.titulo} | ${empleo.ciudad}`} description={empleo.descripcion} keywords="empleo, trabajo, pasantia,servicio" url={router.asPath}/>
-    <section className="container text-black p-5 containerOne h-auto mb-5" style={{marginTop:"2%"}}>
-        <div className="row pt-4 w-100 h-100">
-            <div className="image my-auto text-center col-md-6 col-12">
+    <section className="container text-white p-5 containerOne h-auto mb-5" style={{marginTop:"2%"}}>
+        <div className="pt-4  h-100 row">
+            <div className="image my-auto text-center col-12 col-md-6 p-0">
                 <h1 className="tittle mb-3">{empleo.titulo}</h1>
                 <Image 
                     src={image||'/imagesCategorias/OTROS.jpg'} 
@@ -104,7 +111,7 @@ export default function OneEmpleo({empleo,favorito}){
                 />
                 <h2 className="mt-3">{empleo.categoria}</h2>
             </div>
-            <div className="content col-md-6 col-12">
+            <div className="col-12 col-md-6 p-0">
                 <div className="descripcion">
                     <h2>DESCRIPCION</h2>
                     <p style={{whiteSpace:'pre-wrap'}}>{empleo.descripcion}</p>
@@ -134,17 +141,24 @@ export default function OneEmpleo({empleo,favorito}){
                     <h3>MODALIDAD</h3>
                     <p>{empleo.modalidad}</p>
                 </div>
-                <div className="buttons justify-content-center row container pb-5">
-                    <Link href={`https://wa.me/${empleo.num_telf}`} target="_blank" className="btn text-success col-md-3 col-3">
+                <hr/>
+                <div>
+                        <h3>NUMERO DE TELEFONO</h3>
+                        <p>{empleo.num_telf}</p>
+                </div>
+                <hr/>
+                <div className="buttons justify-content-center pb-5">
+                    <Link href={`https://wa.me/${empleo.num_telf}`} target="_blank" className="btn text-success">
                     <i className="bi bi-whatsapp icon"></i>
                     </Link>
-                    <button  className={`btn ${isFavorito?"text-danger":"text-warning"} col-md-3 col-3`}
+
+                    <button  className={`btn ${isFavorito?"text-danger":"text-warning"}`}
                     onClick={()=>{
                         setFavorito();
                     }}><i className="bi bi-bookmark-heart icon"></i></button>
                     
                     <button 
-                        className="btn text-primary col-md-3 col-3"
+                        className="btn text-primary"
                         onClick={() => setShowShareModal(true)}
                     >
                         <i className="bi bi-share-fill icon"></i>
@@ -198,42 +212,4 @@ export default function OneEmpleo({empleo,favorito}){
     </section>
     </>
     );
-}
-
-export async function getServerSideProps(context){
-    const {id} = await context.query; //obtener el id de la url
-
-    const resToken = await fetch(process.env.url_front+"/back/api/auth/csrf-token",{
-        headers:{
-            Cookie:context.req.headers.cookie
-        }
-    }); //obtener el token csrf de nuevo ya que el que esta en httponly da error pq pertenece al del lado del cliente
-    const {token:csrfToken} = await resToken.json();
-
-    const response = await fetch(process.env.url_front+"/back/api/empleos-c/infoEmpleo/"+id);//obtener los datos del empleo
-    const data = await response.json();
-
-    const initFavorito = async(empleo)=>{ //verificar si este empleo es favorito. return: true o false
-        const response = await fetch(process.env.url_front+"/back/api/usuarios-c/isFavorito",{
-            method:"POST",
-            body:JSON.stringify({
-                id_recurso:empleo.id_empleo,
-                tipo_recurso:"empleo"
-            }),
-            headers:{
-                "Content-Type":"application/json",
-                "X-XSRF-Token": csrfToken,
-                "Cookie":context.req.headers.cookie
-            }
-        });
-        const dataFav = await response.json();
-        return dataFav;
-    }
-    const isFavorito=await initFavorito(data);
-    return {
-        props:{
-            empleo:data,
-            favorito:isFavorito
-        }
-    };
 }

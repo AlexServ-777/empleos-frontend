@@ -1,8 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     /*async rewrites(){
-    /*
-      return [
+    return [
       {
         source:'/back/:path*',
         destination:'https://localhost:8000/:path*',

@@ -1,6 +1,7 @@
 import OnePasantias from "@/components/pasantias/one";
 import { cookies } from "next/headers";
 
+export const dynamic = 'force-dynamic';
 export default async function Page({params}) {
     const {id} = await params;
     const cookie = await cookies();
@@ -11,7 +12,7 @@ export default async function Page({params}) {
     });
     const {token:csrfToken} = resToken.json();
 
-    const response = await fetch(process.env.url_front+"/back/api/pasantias-c/"+id);
+    const response = await fetch(process.env.url_front+"/back/api/pasantias-c/getPasantia/"+id);
     const data = await response.json();
 
     

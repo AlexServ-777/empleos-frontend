@@ -7,10 +7,10 @@ export  function BarPerfil({setSeccion}){
     }
     return(
         <section className="containerBar d-md-flex d-none">
-            <button className="btn" onClick={(e)=>handler(e)}>INFORMACION</button>
-            <button className="btn" onClick={(e)=>handler(e)}>SEGURIDAD</button>
-            <button className="btn" onClick={(e)=>handler(e)}>PUBLICACIONES</button>
-            <button className="btn" onClick={(e)=>handler(e)}>FAVORITOS</button>
+            <button className="btn text-white" onClick={(e)=>handler(e)}>INFORMACION</button>
+            <button className="btn text-white" onClick={(e)=>handler(e)}>SEGURIDAD</button>
+            <button className="btn text-white" onClick={(e)=>handler(e)}>PUBLICACIONES</button>
+            <button className="btn text-white" onClick={(e)=>handler(e)}>FAVORITOS</button>
         </section>
     )
 }
