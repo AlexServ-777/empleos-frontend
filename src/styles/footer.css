@@ -2,13 +2,17 @@
     color: white;
     overflow: hidden;
     background: linear-gradient(45deg, #0C7079, #271d40);
-    padding: 1.5rem 0;
+    padding: 1.5rem;
     width: 100%;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
     margin-top: auto;
     position: relative;
 }
-
+.sub-foot li{
+    padding: 0.5rem;
+    list-style:  none;
+    word-wrap: break-word;
+}
 .footer a {
     color: #ffc107;
     text-decoration: none;

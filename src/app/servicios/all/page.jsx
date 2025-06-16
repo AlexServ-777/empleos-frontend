@@ -1,6 +1,12 @@
 import MostrarServicios from "@/components/servicios/all";
 import { cookies } from "next/headers";
 export const dynamic = 'force-dynamic';
+
+export const metadata = {
+    title: 'Servicios | JobGet-Lat',
+    description: 'Descubre los mejores servicios profesionales disponibles en tu país, aqui en JobGet-Lat',
+};
+
 export default async function Page() {
     try {
         const cookie = await cookies();

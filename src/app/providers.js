@@ -4,6 +4,7 @@ import { urlBackGlobal } from "@/constants/constants_backend";
 import React, { useState, createContext, useEffect } from "react";
 import "@/utils/interceptorFETCH";
 import AlertMessage from "@/components/generales/alertMessage";
+import Footer from "@/components/generales/footer";
 
 export const Context = createContext();
 
@@ -61,13 +62,14 @@ export function Providers({ children }) {
         }
     }, [alertData.show])
     return (
-        <Context.Provider value={{ session, setSession, csrf, setAlertData }}>
+        <Context.Provider value={{ session, setSession, csrf, setAlertData}}>
             <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
                 <NavBar />
                 <div className='padd p-md-5 p-5'></div>
                 <main style={{ flex: "1 0 auto" }}>
                     {children}
                 </main>
+                <Footer/>
             </div>
 
             <div className='overlayAlert' style={{ display: alertData.show }}>

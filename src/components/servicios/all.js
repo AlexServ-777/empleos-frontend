@@ -3,7 +3,6 @@ import React, {useState } from "react";
 import Link from "next/link";
 import Filters from "@/components/generales/Filters";
 import Buscador from "@/components/generales/buscador";
-import SEO from "@/components/SEO";
 import { useRouter } from "next/navigation";
 
 export default function MostrarServicios({servicios}){
@@ -87,8 +86,6 @@ export default function MostrarServicios({servicios}){
     };
     const router = useRouter();
     return (
-        <>
-        <SEO title={'Encuentra Servicios'} description={'Encuentra cualquier tipo de servicios para tus necesidades en un solo lugar'} keywords={'servicios, trabajos, necesidad, necestio'} url={router.asPath}/>
         <section className="all-items container mb-5" style={{height:"100%"}}>
             <div className="search-filters-container row mx-auto">
                 <div className="col-md-6 col-12">
@@ -130,6 +127,5 @@ export default function MostrarServicios({servicios}){
                 ))}
             </ul>
         </section>
-        </>
     );
 }

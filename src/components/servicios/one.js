@@ -1,13 +1,10 @@
 "use client"
 import { useState, useEffect, useContext } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { urlBackGlobal } from "@/constants/constants_backend";
 import { Context } from "@/app/providers";
-import SEO from "@/components/SEO";
 
 export default function OneServicio({servicio, favorito}){
-    const router = useRouter();
     const {setAlertData,csrf} = useContext(Context);
     const [image, setImage] = useState("");
     const [isFavorito,setIsFavorito] = useState(favorito);
@@ -66,8 +63,6 @@ export default function OneServicio({servicio, favorito}){
     }
 
     return (
-        <>
-        <SEO title={`${servicio.titulo} | ${servicio.ciudad}`} description={servicio.descripcion} keywords={'servicios,trabajos, necesidad, busco'} url={router.asPath}/>
         <section className="container text-white p-5 mb-5 containerOne h-auto" style={{marginTop:"2%"}}>
             <div className="pt-4  h-100 row">
                 <div className="image my-auto text-center col-md-6 col-12">
@@ -127,7 +122,6 @@ export default function OneServicio({servicio, favorito}){
                 </div>
             </div>
         </section>
-        </>
     );
 }
 

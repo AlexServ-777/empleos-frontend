@@ -3,6 +3,17 @@ import { cookies } from "next/headers";
 
 export const dynamic = 'force-dynamic';
 
+export async function generateMetadata({ params }) {
+    const { id } = params;
+    const response = await fetch(process.env.url_front+"/back/api/empleos-c/infoEmpleo/"+id);
+    const data = await response.json();
+
+    return {
+        title: `${data.titulo} | JobGet-Lat`,
+        description: data.descripcion || 'Descubre esta oportunidad laboral en JobGet-Lat',
+    };
+}
+
 export default async function Page({ params }) {
     const { id } = await params;
     const cookie = await cookies();

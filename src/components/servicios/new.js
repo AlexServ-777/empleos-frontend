@@ -7,7 +7,6 @@ import PhoneInput from "react-phone-number-input";
 import { urlBackGlobal } from "@/constants/constants_backend";
 import { getEstadosFromApi } from "@/utils/locationUtils";
 import { SelectServicios } from "@/components/generales/select-forms";
-import SEO from "@/components/SEO";
 
 export default function NewService(){
     const urlBackEnd = urlBackGlobal;
@@ -72,8 +71,6 @@ export default function NewService(){
     }, [csrf]);
     
     return(
-        <>
-        <SEO title={'PUBLICA TU SERVICIO'} description={'Publica tus servicios para que otros puedan contratarte'} keywords={'servicios, publicacion, trabajos, anuncio'} url={router.asPath}/>
     <section className="container form-container mb-5">
         <h1 className="form-title">PUBLICAR SERVICIO</h1>
         <form ref={formRef} className="row g-4 p-4">
@@ -179,7 +176,7 @@ export default function NewService(){
                 </button>
             </div>
         </form>
-    </section></>);
+    </section>);
 }
 export async function getServerSideProps(context){
     const response = await fetch(process.env.url_front+"/back/api/auth/verificar-token",{

@@ -2,6 +2,11 @@ import Home from "@/components";
 import { cookies } from "next/headers";
 
 export const dynamic = 'force-dynamic';
+
+export const metadata = {
+    title: 'ENCUENTRA EMPLEOS, PASANTIAS Y SERVICIOS EN UN SOLO LUGAR | JobGet-Lat',
+    description: 'Encuentra todas tus oportunidades aqui en un solo lugar, aqui en JobGet-Lat',
+};
 export default async function Page() {
     try {
         const cookie = await cookies();

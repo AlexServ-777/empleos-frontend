@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Filters from "@/components/generales/Filters";
 import Buscador from "@/components/generales/buscador";
-import SEO from "@/components/SEO";
 import {useRouter } from "next/navigation";
 
 export default function MostrarEmpleos({empleos}){
@@ -103,8 +102,6 @@ export default function MostrarEmpleos({empleos}){
     };
     const router = useRouter()
     return (
-        <>
-        <SEO title="EMPLEOS" description="Encuentra cualquier empleo aqui" keywords="empleos, trabajo, necesidad" url={router.asPath}/>
         <section className="all-items container mb-5" style={{height:"100%"}}>
             <div className="search-filters-container  row mx-auto">
                 <div className="col-md-6 col-12">
@@ -146,6 +143,5 @@ export default function MostrarEmpleos({empleos}){
                 ))}
             </ul>
         </section>
-        </>
     );
 }

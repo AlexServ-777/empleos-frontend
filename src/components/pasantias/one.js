@@ -1,14 +1,11 @@
 "use client";
-import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
-import SEO from "@/components/SEO";
 import { Context } from "@/app/providers";
 import { urlBackGlobal } from "@/constants/constants_backend";
 import Image from "next/image";
 
 export default function OnePasantias({pasantia,favorito}){
     const urlBack = urlBackGlobal;
-    const router = useRouter();
     const {csrf, setAlertData} = useContext(Context);
     const [image, setImage] = useState("");
     const [isFavorito, setIsFavorito] = useState(favorito);
@@ -66,8 +63,6 @@ export default function OnePasantias({pasantia,favorito}){
     },[pasantia.categoria]); //obtener la lista de imagenes existentes 
 
     return(
-        <>
-        <SEO title={`${pasantia.titulo} | ${pasantia.ciudad}`} description={pasantia.descripcion} keywords='pasantia, trabajo, pruebas' url={router.asPath}/>
         <section className="container text-white p-5 containerOne h-auto mb-5" style={{marginTop:"2%"}}>
           <div className="pt-4  h-100 row">
             <div className="image my-auto text-center col-12 col-md-6 p-0">   
@@ -133,6 +128,5 @@ export default function OnePasantias({pasantia,favorito}){
             </div>
         </div>
         </section>
-        </>
     );
 }

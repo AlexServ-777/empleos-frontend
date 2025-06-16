@@ -6,7 +6,6 @@ import { getEstadosFromApi } from "@/utils/locationUtils";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { SelectPasantias } from '@/components/generales/select-forms';
-import SEO from '@/components/SEO';
 import { Context } from '@/app/providers';
 
 export default function NewPasantia(){
@@ -77,15 +76,12 @@ export default function NewPasantia(){
     }, [csrf]);
 
     return(
-        <>
-        <SEO title={'PUBLICA TU ANUNCIO DE PASANTIA'} description={'Publica tus anuncion en un solo lugar'} keywords={'pasantias,bolivia,publicacion pasantias'} url={router.asPath}/>
         <section className="container form-container mb-5">
             <h1 className="form-title">PUBLICAR PASANTÍA</h1>
             <form className="row g-4 p-4" ref={formRef}>
                 <FormBody setPhone={setPhone} publicarPasantia={publicarPasantia} phone={phone} estados={estados}/>
             </form>
         </section>
-        </>
     );
 }
 

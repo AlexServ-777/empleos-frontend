@@ -1,15 +1,12 @@
 "use client"
-import { useRouter } from "next/navigation";
 import { useEffect, useState, useContext } from "react";
 import { urlBackGlobal } from "@/constants/constants_backend";
 import { Context } from "@/app/providers";
 import Link from "next/link";
 import Image from "next/image";
-import SEO from "@/components/SEO";
 
 export default function OneEmpleo({empleo,favorito}){
     const urlBack = urlBackGlobal;
-    const router = useRouter();
     const {csrf, setAlertData} = useContext(Context);
 
     const [image, setImage] = useState("");
@@ -95,8 +92,6 @@ export default function OneEmpleo({empleo,favorito}){
     }
 
     return (
-    <>
-    <SEO title={`${empleo.titulo} | ${empleo.ciudad}`} description={empleo.descripcion} keywords="empleo, trabajo, pasantia,servicio" url={router.asPath}/>
     <section className="container text-white p-5 containerOne h-auto mb-5" style={{marginTop:"2%"}}>
         <div className="pt-4  h-100 row">
             <div className="image my-auto text-center col-12 col-md-6 p-0">
@@ -210,6 +205,5 @@ export default function OneEmpleo({empleo,favorito}){
             </div>
         )}
     </section>
-    </>
     );
 }

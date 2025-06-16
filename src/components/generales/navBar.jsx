@@ -94,7 +94,8 @@ export default function NavBar() {
       <div className="container movil d-flex justify-content-center align-items-center d-md-none" style={{position:"fixed", zIndex:"998"}}>
           <img src="/logoJobGet.webp" style={{height:"4rem",borderRadius:"30px"}}/>
           <Link href="/" className="text-decoration-none m-auto text-warning homeLinkMovil">
-            <h1 style={{fontFamily:"'Permanent Marker', cursive"}}>JobGet</h1>
+          <span className="fs-1">JobGet </span>
+          <span className="fs-5">Lat</span>
           </Link>
 
           {/*menu para abrir el menu deslizante */}
@@ -111,7 +112,10 @@ export default function NavBar() {
           <div className="col-3 container justify-content-start gap-4">
             <img src="/logoJobGet.webp" style={{width:"4rem", borderRadius:"30px", padding:"0px"}} className=""/>
             <h2 className="my-auto text-warning" style={{fontFamily:"'Permanent Marker', cursive"}}>
-              <Link href="/" className="text-warning" style={{textDecoration:"none"}}>JobGet</Link>
+              <Link href="/" className="text-warning" style={{textDecoration:"none"}}>
+              <span className="fs-1">JobGet </span>
+              <span className="fs-5">Lat</span>
+              </Link>
             </h2>
           </div>
           <div className="container col-6" style={{zIndex:9999}}>

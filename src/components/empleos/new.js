@@ -6,7 +6,6 @@ import PhoneInput from "react-phone-number-input";
 import { urlBackGlobal } from "@/constants/constants_backend";
 import { getEstadosFromApi } from "@/utils/locationUtils";
 import { SelectEmpleos } from "@/components/generales/select-forms";
-import SEO from "@/components/SEO";
 import { Context } from "@/app/providers";
 
 export default function NuevoEmpleo(){
@@ -63,14 +62,12 @@ export default function NuevoEmpleo(){
     }
 
     return(
-        <><SEO title='Publicar empleo' description='Publica cualquier tipo de trabajo sin limitacion' keywords={'trabajos, publicar trabajo, empleos'} url={router.asPath}/>
         <section className="container form-container mb-5">
             <h1 className="form-title">PUBLICAR NUEVO EMPLEO</h1>
             <form ref={formRef} className="row g-4 p-4">
                 <FormBody acctionPublicar={publicarEmpleo} setPhone={setPhone} phone={phone}/>
             </form>
         </section>
-        </>
     );
 }
 

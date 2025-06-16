@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Filters from "@/components/generales/Filters";
 import Buscador from "@/components/generales/buscador";
-import SEO from "@/components/SEO";
 import { useRouter } from "next/navigation";
 
 export default function MostrarPasantias({pasantias}){
@@ -88,7 +87,6 @@ export default function MostrarPasantias({pasantias}){
     const router = useRouter()
     return (
         <>
-        <SEO title={'PASANTIAS'} description={'Encuentra pasantias en un solo lugar'} keywords={'bolivia, pasantias, pruebas,tecnico'} url={router.asPath}/>
         <section className="all-items container mb-5" style={{height:"100%"}}>
             <div className="search-filters-container row mx-auto">
                 <div className="col-md-6 col-12">
