@@ -136,7 +136,7 @@ export default function Register() {
             </span>
             <input
               name="nom_usuario"
-              placeholder="Jorge123"
+              placeholder="Example123"
               type="text"
               className="form-control"
               id="validationCustomUsername"
@@ -153,7 +153,7 @@ export default function Register() {
             className="form-control"
             name="email"
             type="email"
-            placeholder="jorge.account@gmail.com"
+            placeholder="example@gmail.com"
             required
             maxLength="50"
           ></input>
