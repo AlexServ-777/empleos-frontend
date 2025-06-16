@@ -7,7 +7,7 @@ const GoogleLoginButton = () => {
     <button
     type='button'
       onClick={()=>{
-        router.push('/back/api/auth/google/login')
+        router.push('/back/api/auth/google/login');
       }} 
       className="mt-3 btn-google"
     >

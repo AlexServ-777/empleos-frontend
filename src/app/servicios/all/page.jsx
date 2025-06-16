@@ -1,4 +1,5 @@
 import MostrarServicios from "@/components/servicios/all";
+import { cookies } from "next/headers";
 export const dynamic = 'force-dynamic';
 export default async function Page() {
     try {
