@@ -34,7 +34,10 @@ import { Providers } from "./providers";
 export const metadata = {
   title: "ENCUENTRA TODO TIPO DE EMPLEOS, PASANTIAS Y SERVICIOS EN UN SOLO LUGAR",
   description: "En JOBGET-LAT puedes encontrar variedades de oportunidades de forma rapida y sencilla",
-  icon:"/favicon.ico"
+  icon:"/favicon.ico",
+  other:{
+    "google-adsense-account":"ca-pub-7383764596596086"
+  }
 };
 
 export default async function RootLayout({ children }) {
