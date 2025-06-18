@@ -3,11 +3,13 @@ import { useState, useEffect, useContext } from "react";
 import Link from "next/link";
 import { urlBackGlobal } from "@/constants/constants_backend";
 import { Context } from "@/app/providers";
+import Modal_Share from "../generales/modal-share";
 
 export default function OneServicio({servicio, favorito}){
     const {setAlertData,csrf} = useContext(Context);
     const [image, setImage] = useState("");
     const [isFavorito,setIsFavorito] = useState(favorito);
+    const [showShareModal, setShowShareModal] = useState(false);
 
     useEffect(()=>{
         const obtenerImagenes = async () => {
@@ -109,53 +111,19 @@ export default function OneServicio({servicio, favorito}){
                     <div className="buttons justify-content-center pb-5">
                         {/*Aqui faltan algunos atributos de la db */}
                         <Link href={"https://wa.me/"+servicio.num_telf} target="_blank" className="btn text-success">
-                            <i className="bi bi-whatsapp icon"></i>
+                            <i className="bi bi-whatsapp icon whatsapp"></i>
                         </Link>
-                        <button className={`btn ${isFavorito?"text-danger":"text-warning"}`}
+                        <button className={`btn`}
                         onClick={()=>setFavorito()}>
-                            <i className="bi bi-bookmark-heart icon"></i>
+                            <i className={`bi bi-bookmark-heart icon favorito ${isFavorito?"set-fav":"del-fav"}`}></i>
                         </button>
-                        <button className="btn text-primary ">
-                            <i className="bi bi-share-fill icon"></i>
+                        <button className="btn text-primary " onClick={()=>setShowShareModal(true)}>
+                            <i className="bi bi-share-fill icon share"></i>
                         </button>
                     </div>
                 </div>
             </div>
+            <Modal_Share showShareModal={showShareModal} setShowShareModal={setShowShareModal} tipo={"servicio"} data={servicio}/>
         </section>
     );
-}
-
-export async function getServerSideProps(context) {
-    const {id} = await context.query;
-
-    const csrfResponse = await fetch(process.env.url_front+"/back/api/auth/csrf-token",{
-        headers:{Cookie:context.req.headers.cookie}
-    });
-    const {token:csrf} = await csrfResponse.json();
-    
-    //getServicio
-    const response = await fetch(process.env.url_front+"/back/api/servicios-c/getServicioOne/"+id);
-    const data = await response.json();
-
-    const initFavorito = async(servicio)=>{
-        const response = await fetch(process.env.url_front+"/back/api/usuarios-c/isFavorito",{
-            method:"POST",
-            body:JSON.stringify({
-                id_recurso:servicio.id_servicio,
-                tipo_recurso:"servicio"
-            }),
-            headers:{
-                "Content-Type":"application/json",
-                "X-XSRF-Token":csrf,
-                "Cookie":context.req.headers.cookie
-            }
-        });
-        const isfav = await response.json();
-        return isfav;
-    }
-
-    const isFavorito = await initFavorito(data);
-    return{
-        props:{servicio:data, favorito:isFavorito}
-    }
 }

@@ -3,12 +3,14 @@ import { useContext, useEffect, useState } from "react";
 import { Context } from "@/app/providers";
 import { urlBackGlobal } from "@/constants/constants_backend";
 import Image from "next/image";
+import Modal_Share from "../generales/modal-share";
 
 export default function OnePasantias({pasantia,favorito}){
     const urlBack = urlBackGlobal;
     const {csrf, setAlertData} = useContext(Context);
     const [image, setImage] = useState("");
     const [isFavorito, setIsFavorito] = useState(favorito);
+    const [showShareModal, setShowShareModal] = useState(false);
 
     const setFavorito = async()=>{
         const response = await fetch(urlBack+"/api/usuarios-c/setFavorito",{
@@ -121,12 +123,16 @@ export default function OnePasantias({pasantia,favorito}){
                 <hr/>
                 <div className="buttons justify-content-center pb-5">
                     {/*Aqui faltan algunos atributos de la db */}
-                    <button  className="btn text-success"><i className="bi bi-whatsapp icon"></i></button>
-                    <button  className={`btn ${isFavorito?"text-danger":"text-warning"}`} onClick={setFavorito}><i className="bi bi-bookmark-heart icon"></i></button>
-                    <button className="btn text-primary"><i className="bi bi-share-fill icon"></i></button>
+                    <button  className="btn text-success">
+                        <i className="bi bi-whatsapp icon whatsapp"></i></button>
+                    <button  className={`btn`} onClick={()=>setFavorito()}>
+                        <i className={`bi bi-bookmark-heart icon favorito ${isFavorito?"set-fav":"del-fav"}`}></i></button>
+                    <button className="btn text-primary" onClick={()=>{setShowShareModal(true)}}>
+                        <i className="bi bi-share-fill icon share"></i></button>
                 </div>
             </div>
         </div>
+        <Modal_Share showShareModal={showShareModal} setShowShareModal={setShowShareModal} tipo={"pasantia"} data={pasantia}/>
         </section>
     );
 }

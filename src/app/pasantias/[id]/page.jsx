@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }) {
-    const { id } = params;
+    const { id } = await params;
     const response = await fetch(process.env.url_front+"/back/api/pasantias-c/getPasantia/"+id);
     const data = await response.json();
 
@@ -22,7 +22,7 @@ export default async function Page({params}) {
             Cookie: cookie
         }
     });
-    const {token:csrfToken} = resToken.json();
+    const {token:csrfToken} = await resToken.json();
 
     const response = await fetch(process.env.url_front+"/back/api/pasantias-c/getPasantia/"+id);
     const data = await response.json();

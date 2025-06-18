@@ -4,6 +4,7 @@ import { urlBackGlobal } from "@/constants/constants_backend";
 import { Context } from "@/app/providers";
 import Link from "next/link";
 import Image from "next/image";
+import Modal_Share from "../generales/modal-share";
 
 export default function OneEmpleo({empleo,favorito}){
     const urlBack = urlBackGlobal;
@@ -22,34 +23,6 @@ export default function OneEmpleo({empleo,favorito}){
         getImage();
     },[empleo.categoria]);//setear la imagen correspondiente
 
-    const handleShare = async (platform) => {
-        const url = window.location.href;
-        const text = `¡Mira este empleo: ${empleo.titulo} en ${empleo.ciudad}!`;
-
-        switch(platform) {
-            case 'whatsapp':
-                window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
-                break;
-            case 'facebook':
-                window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
-                break;
-            case 'twitter':
-                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
-                break;
-            case 'linkedin':
-                window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank');
-                break;
-            case 'copy':
-                try {
-                    await navigator.clipboard.writeText(url);
-                    alert('¡Enlace copiado al portapapeles!');
-                } catch (err) {
-                    console.error('Error al copiar:', err);
-                }
-                break;
-        }
-        setShowShareModal(false);
-    };//funcion del modal para compartir la pagina
     const setFavorito = async()=>{ //agregar o eliminar de favoritos
         const response = await fetch(urlBack+"/api/usuarios-c/setFavorito",{
             method:"POST",
@@ -144,66 +117,24 @@ export default function OneEmpleo({empleo,favorito}){
                 <hr/>
                 <div className="buttons justify-content-center pb-5">
                     <Link href={`https://wa.me/${empleo.num_telf}`} target="_blank" className="btn text-success">
-                    <i className="bi bi-whatsapp icon"></i>
+                    <i className="bi bi-whatsapp icon whatsapp"></i>
                     </Link>
 
-                    <button  className={`btn ${isFavorito?"text-danger":"text-warning"}`}
+                    <button  className={`btn`}
                     onClick={()=>{
                         setFavorito();
-                    }}><i className="bi bi-bookmark-heart icon"></i></button>
+                    }}><i className={`bi bi-bookmark-heart icon favorito ${isFavorito?"set-fav":"del-fav"}`}></i></button>
                     
                     <button 
                         className="btn text-primary"
                         onClick={() => setShowShareModal(true)}
                     >
-                        <i className="bi bi-share-fill icon"></i>
+                        <i className="bi bi-share-fill icon share"></i>
                     </button>
                 </div>
             </div>
         </div>
-
-        {/* Modal de Compartir */}
-        {showShareModal && (
-            <div className="modal-backdrop" onClick={() => setShowShareModal(false)}>
-                <div className="share-modal" onClick={e => e.stopPropagation()}>
-                    <div className="modal-header">
-                        <h5 className="modal-title">
-                            <i className="bi bi-share-fill"></i>
-                            Compartir Empleo
-                        </h5>
-                        <button 
-                            type="button" 
-                            className="btn-close btn-close-white" 
-                            onClick={() => setShowShareModal(false)}
-                        ></button>
-                    </div>
-                    <div className="modal-body">
-                        <div className="share-options">
-                            <button onClick={() => handleShare('whatsapp')} className="share-btn whatsapp">
-                                <i className="bi bi-whatsapp"></i>
-                                <span>WhatsApp</span>
-                            </button>
-                            <button onClick={() => handleShare('facebook')} className="share-btn facebook">
-                                <i className="bi bi-facebook"></i>
-                                <span>Facebook</span>
-                            </button>
-                            <button onClick={() => handleShare('twitter')} className="share-btn twitter">
-                                <i className="bi bi-twitter-x"></i>
-                                <span>Twitter</span>
-                            </button>
-                            <button onClick={() => handleShare('linkedin')} className="share-btn linkedin">
-                                <i className="bi bi-linkedin"></i>
-                                <span>LinkedIn</span>
-                            </button>
-                            <button onClick={() => handleShare('copy')} className="share-btn copy">
-                                <i className="bi bi-link-45deg"></i>
-                                <span>Copiar Enlace</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        )}
+        <Modal_Share showShareModal={showShareModal} setShowShareModal={setShowShareModal} tipo={"empleo"} data={empleo}/>
     </section>
     );
 }

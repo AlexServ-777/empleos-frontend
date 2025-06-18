@@ -13,9 +13,36 @@
     display: flex;
 }
 .containerOne .buttons .btn{
+    border: 0px;
     width: 30%;
     display: flex;
     justify-content: center;
+}
+
+/*Diseno de los 3 iconos del pie de la pagina*/
+.containerOne .buttons .btn .whatsapp{
+    background: linear-gradient(#009929, #5ccb5f);
+    text-shadow: 5 5px 5px green;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+}
+.containerOne .buttons .btn .set-fav{
+    background: linear-gradient(#990000, #e60000);
+    text-shadow: 1 5px 5px red;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+}
+.containerOne .buttons .btn .del-fav{
+    background: linear-gradient(#F9A825, #FFEB3B);
+    text-shadow: 1 5px 5px yellow;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+}
+.containerOne .buttons .btn .share{
+    background: linear-gradient(#11388e, #174abd);
+    text-shadow: 1 5px 5px blue;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
 }
 .icon{
     position: absolute;
@@ -24,6 +51,7 @@
   }
 .icon:hover{
     transform: scale(1.7);
+    background-position: top;
   }
   .tittle{
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;

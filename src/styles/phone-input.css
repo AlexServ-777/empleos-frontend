@@ -3,6 +3,7 @@
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
     border-radius: 8px !important;
     color: white !important;
+    display: flex;
 }
 
 .PhoneInputInput {
@@ -10,9 +11,11 @@
     color: white !important;
     border: none !important;
     outline: none !important;
+    flex: 1;
 }
 
 .PhoneInputCountry {
+    width: auto !important;
     background-color: transparent !important;
     color: white !important;
 }
