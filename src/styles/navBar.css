@@ -87,13 +87,13 @@ hr{
 }
 
 .menuInterno{
-    align-content: center;
+    align-content: center;  
     left: 100%;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
     z-index: 999;
     height: 100vh;
-    width: 80%;
+    width: 85%;
     position: fixed;
     background: linear-gradient(135deg, #05161a 0%, #072E33 100%);
     padding: 2rem 1.5rem;
@@ -102,7 +102,7 @@ hr{
 }
 
 .menuInterno.open{
-    left: 20%;
+    left: 15%;
 }
 
 .menuInterno ul {
@@ -220,21 +220,6 @@ hr{
     z-index: 1;
 }
 
-/* Responsive */
-@media (max-width: 576px) {
-    .menuInterno {
-        width: 85%;
-    }
-    
-    .menuInterno.open {
-        left: 15%;
-    }
-    
-    .menuInterno ul li {
-        font-size: 1rem;
-        padding: 0.8rem;
-    }
-}
 .menuInterno i.bi-x-circle{
     position: absolute;
     top: 1.5rem;

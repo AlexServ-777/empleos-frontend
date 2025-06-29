@@ -72,6 +72,8 @@ export default function Publications({ userInf }) {
     }, [csrf]);
 
     return (
+        <>
+        <hr />
         <section style={{ display: `${empleos || pasantias || servicios ? "block" : "none"}` }}>
             {/*EMPLEOS ACCORDEON*/}
             <select className='form-select wid-50 wid-md-25 mb-3' defaultValue={"EMPLEOS"}
@@ -81,7 +83,8 @@ export default function Publications({ userInf }) {
                 <option value="SERVICIOS">SERVICIOS</option>
             </select>
             <h3 className="text-white text-center">PUBLICACIONES</h3>
-            <p className='text-warning text-center'>Las publicaciones se borraran automaticamente pasado 6 meses desde su creacion</p>
+            <p className='text-warning text-center'>Las publicaciones se desactivaran automaticamente pasado 1 semana desde su modificacion</p>
+            <p className='text-warning text-center'>Y se eliminaran pasado 6 meses si no se vuelven a activar</p>
             
             {/* EMPLEOS ACCORDEON */}
             <section style={{display:`${showType==="EMPLEOS"?"block":"none"}`}}>
@@ -188,5 +191,6 @@ export default function Publications({ userInf }) {
                 ))}
             </section>
         </section>
+        </>
     );
 }

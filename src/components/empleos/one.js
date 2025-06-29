@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useRef, createElement } from "react";
 import { urlBackGlobal } from "@/constants/constants_backend";
 import { Context } from "@/app/providers";
 import Link from "next/link";
@@ -9,7 +9,7 @@ import Modal_Share from "../generales/modal-share";
 export default function OneEmpleo({empleo,favorito}){
     const urlBack = urlBackGlobal;
     const {csrf, setAlertData} = useContext(Context);
-
+    const imgRef = useRef(/** @type {HTMLImageElement} */ (null));
     const [image, setImage] = useState("");
     const [showShareModal, setShowShareModal] = useState(false);
     const [isFavorito, setIsFavorito] = useState(favorito);
@@ -18,7 +18,9 @@ export default function OneEmpleo({empleo,favorito}){
             const response = await fetch(`/api/listFiles?categoria=${empleo.categoria}`);
             const data = await response.json();
             setImage(data.image);
-            document.getElementsByClassName('imgPrincipal')[0].classList.add('show');
+            //document.getElementsByClassName('imgPrincipal')[0].classList.add('show');
+            imgRef.current.classList.add('show');
+            
         }
         getImage();
     },[empleo.categoria]);//setear la imagen correspondiente
@@ -70,6 +72,7 @@ export default function OneEmpleo({empleo,favorito}){
             <div className="image my-auto text-center col-12 col-md-6 p-0">
                 <h1 className="tittle mb-3">{empleo.titulo}</h1>
                 <Image 
+                    ref={imgRef}
                     src={image||'/imagesCategorias/OTROS.jpg'} 
                     alt={`Imagen de ${empleo.categoria}`}
                     width={500}

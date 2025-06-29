@@ -61,6 +61,7 @@ export default function Favorites() {
 
         return(
             <>
+            <hr />
                 <div className="d-block">
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content favorites-modal">

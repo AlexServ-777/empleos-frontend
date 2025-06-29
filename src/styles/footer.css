@@ -1,4 +1,5 @@
 .footer {
+    z-index: 0;
     color: white;
     overflow: hidden;
     background: linear-gradient(45deg, #0C7079, #271d40);

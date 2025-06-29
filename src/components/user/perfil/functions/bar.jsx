@@ -33,10 +33,18 @@ export function BarPefilMovil({setSeccion, show, setShow}){
         <section className="containerBar-movil d-md-none d-flex">
             <button className="close btn" onClick={()=>setShow('none')}>
             <i className="bi bi-x-circle"></i></button>
-            <button className="btn" onClick={(e)=>handler(e)}>INFORMACION</button>
-            <button className="btn" onClick={(e)=>handler(e)}>SEGURIDAD</button>
-            <button className="btn" onClick={(e)=>handler(e)}>PUBLICACIONES</button>
-            <button className="btn" onClick={(e)=>handler(e)}>FAVORITOS</button>
+            <button className="btn buttonList" onClick={(e)=>handler(e)}>
+            <i className="bi bi-info-circle-fill"></i>
+                INFORMACION</button>
+            <button className="btn buttonList" onClick={(e)=>handler(e)}>
+            <i className="bi bi-shield-lock-fill"></i>
+                SEGURIDAD</button>
+            <button className="btn buttonList" onClick={(e)=>handler(e)}>
+            <i className="bi bi-archive-fill"></i>
+                PUBLICACIONES</button>
+            <button className="btn buttonList" onClick={(e)=>handler(e)}>
+            <i className="bi bi-heart-fill"></i>
+                FAVORITOS</button>
         </section>
     )
 }
