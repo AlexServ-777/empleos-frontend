@@ -83,8 +83,8 @@ export default function Publications({ userInf }) {
                 <option value="SERVICIOS">SERVICIOS</option>
             </select>
             <h3 className="text-white text-center">PUBLICACIONES</h3>
-            <p className='text-warning text-center'>Las publicaciones se desactivaran automaticamente pasado 1 semana desde su modificacion</p>
-            <p className='text-warning text-center'>Y se eliminaran pasado 6 meses si no se vuelven a activar</p>
+            <p className='text-warning text-center'>Las publicaciones se desactivaran automaticamente pasado 1 semana desde su modificacion o creacion</p>
+            <p className='text-warning text-center'>Y se eliminaran pasado 1 mese desde su desactivacion</p>
             
             {/* EMPLEOS ACCORDEON */}
             <section style={{display:`${showType==="EMPLEOS"?"block":"none"}`}}>
