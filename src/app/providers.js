@@ -63,10 +63,10 @@ export function Providers({ children }) {
     }, [alertData.show])
     return (
         <Context.Provider value={{ session, setSession, csrf, setAlertData}}>
-            <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+            <div style={{display: "flex", flexDirection: "column", minHeight:'100vh'}}>
                 <NavBar />
                 <div className='padd p-md-5 p-5'></div>
-                <main style={{ flex: "1 0 auto" }}>
+                <main style={{minHeight:'100vh'}}>
                     {children}
                 </main>
                 <Footer/>
