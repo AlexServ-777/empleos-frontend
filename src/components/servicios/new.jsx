@@ -4,7 +4,7 @@ import { Context } from "@/app/providers";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import PhoneInput from "react-phone-number-input";
-import { urlBackGlobal } from "@/constants/constants_backend";
+import { urlBackGlobal } from "@/constants/urls";
 import { getEstadosFromApi } from "@/utils/locationUtils";
 import { SelectServicios } from "@/components/generales/select-forms";
 
@@ -71,7 +71,7 @@ export default function NewService(){
     }, [csrf]);
     
     return(
-    <section className="container form-container mb-5">
+    <section className="container form-container">
         <h1 className="form-title">PUBLICAR SERVICIO</h1>
         <form ref={formRef} className="row g-4 p-4">
             {/* Información Básica */}

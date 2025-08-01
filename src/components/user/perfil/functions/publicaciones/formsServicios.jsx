@@ -1,6 +1,6 @@
 "use client"
 import { SelectServicios } from "@/components/generales/select-forms";
-import { urlBackGlobal } from "@/constants/constants_backend";
+import { urlBackGlobal } from "@/constants/urls";
 import { Context } from "@/app/providers";
 import { getEstadosFromApi } from "@/utils/locationUtils";
 import { useContext, useRef, useState,useEffect } from "react";

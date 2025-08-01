@@ -25,7 +25,7 @@ export default function Buscador({ onSearch, placeholder = "Buscar..." }) {
     };
 
     return (
-        <div className="buscador-container mb-3">
+        <div className="buscador-container">
             <div className="search-input-wrapper">
                 <i className="bi bi-search search-icon"></i>
                 <input

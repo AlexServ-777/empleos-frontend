@@ -1,5 +1,5 @@
 "use client"
-import { urlBackGlobal } from '@/constants/constants_backend';
+import { urlBackGlobal } from '@/constants/urls';
 import { Context } from '@/app/providers';
 import { useRouter } from 'next/navigation';
 import React, { useState, useEffect, useContext } from 'react';

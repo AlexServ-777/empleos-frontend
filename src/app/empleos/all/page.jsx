@@ -11,7 +11,9 @@ export const metadata = {
 export default async function Page(){
     const cookie = await cookies();
     const pais = cookie.get('country').value;
-    const response = await fetch(process.env.url_front+"/back/api/empleos-c/getPublic/"+pais);
+    const response = await fetch(process.env.url_front+"/back/api/empleos-c/getPublic/"+pais, {
+        next:{revalidate:1800} //medoa hora
+    });
     const empleos= await response.json();
     return <MostrarEmpleos empleos={empleos}/>
 }

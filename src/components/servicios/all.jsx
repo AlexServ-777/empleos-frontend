@@ -1,11 +1,17 @@
 "use client"
-import React, {useState } from "react";
-import Link from "next/link";
+import React, {useContext, useEffect, useRef, useState } from "react";
 import Filters from "@/components/generales/Filters";
 import Buscador from "@/components/generales/buscador";
-import { useRouter } from "next/navigation";
+import OneServicio from "./one";
+import { urlBackGlobal } from "@/constants/urls";
+import { Context } from "@/app/providers";
 
 export default function MostrarServicios({servicios}){
+    const {csrf} = useContext(Context)
+
+    const [showServicio, setShowServicio] = useState({});
+    const [favorito, setFavorito] = useState(false);
+    
     const [filteredServicios, setFilteredServicios] = useState([]);
     const [filters, setFilters] = useState({
         category: [],
@@ -84,10 +90,40 @@ export default function MostrarServicios({servicios}){
         });
         setFilteredServicios(servicios??[]);
     };
-    const router = useRouter();
+    const get_is_favorite=async()=>{
+        const servicio = showServicio;
+        if(!servicio.id_servicio) return;
+        try{
+        const response = await fetch(urlBackGlobal+'/api/usuarios-c/isFavorito',{
+            method:'POST',credentials:'include',
+            headers:{
+                'x-csrf-token':csrf,
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify({
+                id_recurso:servicio.id_servicio,
+                tipo_recurso:'servicio',
+            })
+        })
+        if(response.ok){
+            const isFav = await response.json();
+            setFavorito(isFav);
+        }
+        else{
+            console.log('failed get favorite');
+            setFavorito(false);
+        }}
+        catch(err){console.error(err)}
+    }
+    useEffect(()=>{
+        if(csrf) setShowServicio(servicios[0]);
+    },[csrf])
+    useEffect(()=>{
+        get_is_favorite();
+    },[showServicio])
     return (
-        <section className="all-items container mb-5" style={{height:"100%"}}>
-            <div className="search-filters-container row mx-auto">
+        <section className="all-items">
+            <div className="search-filters-container row mb-2">
                 <div className="col-md-6 col-12">
                     <Buscador onSearch={handleSearch} placeholder="Buscar servicios..." />
                 </div>
@@ -95,15 +131,18 @@ export default function MostrarServicios({servicios}){
                     <Filters type="servicios" onFilterChange={handleFilterChange} />
                 </div>
             </div>
+            <div className="containerUl">
             <ul>
                 {filteredServicios.map((servicio) => (
                     <React.Fragment key={servicio.id_servicio}>
-                        <li>
-                            <div className="tarjeta container row-cols-12 row-cols-md-12 g-4 mb-2">
+                        <li onClick={()=>{
+                            setShowServicio(servicio);
+                        }}>
+                            <div className="row-cols-12 row-cols-md-12 g-4 mb-2">
                                 <div className="col">
                                     <div className="card h-100">
-                                        <div className="card-body text-white d-flex">
-                                            <div className="col-md-10 col-8">
+                                        <div className="card-body text-white">
+                                            <div className="content">
                                                 <h5 className="card-title">
                                                     {servicio.titulo}
                                                 </h5>
@@ -111,12 +150,6 @@ export default function MostrarServicios({servicios}){
                                                 <p className="card-text" style={{whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>
                                                     {servicio.descripcion}
                                                 </p>
-                                            </div>
-                                            <div className="col-md-2 gap-1 col-4" style={{display:"flex", flexDirection:"column", justifyContent:"center"}}>
-                                                <Link className="btn btn-info w-100 mx-auto" href={`/servicios/${servicio.id_servicio}`}>VER MAS</Link>
-                                                <Link className="btn btn-success w-100 mx-auto" href={`https://wa.me/${servicio.num_telf}`} target="_blank">
-                                                    <i className="bi bi-whatsapp"></i>
-                                                </Link>
                                             </div>
                                         </div>
                                     </div>
@@ -126,6 +159,8 @@ export default function MostrarServicios({servicios}){
                     </React.Fragment>
                 ))}
             </ul>
+            <OneServicio servicio={showServicio} favorito={favorito} setFavorito={setFavorito}/>
+            </div>
         </section>
     );
 }

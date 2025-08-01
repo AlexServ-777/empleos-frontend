@@ -2,7 +2,7 @@
 import React, { useContext, useRef } from 'react';
 import { Context } from '@/app/providers';
 import Swal from "sweetalert2";
-import { urlBackGlobal } from '@/constants/constants_backend';
+import { urlBackGlobal } from '@/constants/urls';
 import Link from 'next/link';
 
 export default function PasswordChange() {
@@ -57,7 +57,7 @@ export default function PasswordChange() {
     }
 
     return (
-        <>
+        <div className='d-flex align-items-center h-100'>
         <form className="text-white row" ref={formPass}>
             <div className="col-md-12">
                 <hr/>
@@ -86,6 +86,6 @@ export default function PasswordChange() {
             </div>
         </form>
         <hr/>
-        </>
+        </div>
     );
 } 

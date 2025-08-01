@@ -1,30 +1,65 @@
-.all-items {
-    padding: 2rem 0;
+.all-items{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+
+.containerUl{
+    overflow: hidden;
+    display: flex;
+    flex-grow: 1;
+    gap: 0.3rem;
+
+    & ul{
+        flex: 0.8;
+    } & .containerOne{
+        flex: 1;   
+    }
+    & hr{
+        margin: 5px 0 5px 0;
+    }
+}
+@media (max-width:992px) {
+    .containerUl{
+        flex-direction: column;
+    }
+    .containerUl ul{
+        width: 100%;
+    }
+    .all-items .containerOne{
+        background: rgba(0, 0, 0, 0.8);
+        position: fixed;
+        width: 100%;
+        top: 20%;
+        z-index: 5;
+        height: 80vh;
+        border-radius: 0;
+        overflow-y: auto;
+    }
 }
 
 .all-items ul {
+    overflow-y: auto;
+    overscroll-behavior: contain; /*para que el scrooll solo afecte al contenerdor y no al global*/
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.all-items .tarjeta {
-    margin-bottom: 1rem;
-}
-
 .all-items .card {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
+    border-radius: 0;
+    border: 0;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .all-items .card:hover {
-    transform: translateY(-5px);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
-
+.all-items li{
+    cursor: pointer;
+}
 .all-items .card-body {
     padding: 1.5rem;
 }

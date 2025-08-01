@@ -1,16 +1,23 @@
 "use client";
 import NavBar from "@/components/generales/navBar";
-import { urlBackGlobal } from "@/constants/constants_backend";
+import { urlBackGlobal } from "@/constants/urls";
 import React, { useState, createContext, useEffect } from "react";
 import "@/utils/interceptorFETCH";
 import AlertMessage from "@/components/generales/alertMessage";
 import Footer from "@/components/generales/footer";
+import Reports from "@/components/generales/reports";
 
 export const Context = createContext();
 
 export function Providers({ children }) {
     const [session, setSession] = useState(false);
     const [csrf, setCsrf] = useState('');
+    const [reportData, setReportData] = useState({
+        id:null,
+        type:null,
+        message:null,
+        show:false
+    })
     const [alertData, setAlertData] = useState({
         message: null,
         type: "success",
@@ -41,7 +48,7 @@ export function Providers({ children }) {
             }
         }
         obtenerCSRF();
-    }, []);
+    }, []); //ejecucucion unica global
 
     useEffect(() => {
         if (alertData.show === "none" && alertData.message != null) {
@@ -62,16 +69,16 @@ export function Providers({ children }) {
         }
     }, [alertData.show])
     return (
-        <Context.Provider value={{ session, setSession, csrf, setAlertData}}>
-            <div style={{display: "flex", flexDirection: "column", minHeight:'100vh'}}>
-                <NavBar />
-                <div className='padd p-md-5 p-5'></div>
-                <main style={{minHeight:'100vh'}}>
-                    {children}
+        <Context.Provider value={{ session, setSession, csrf, setAlertData, reportData, setReportData}}>
+                <main className="main_global">
+                    <NavBar />
+                    <div className="content">
+                        {children}
+                    </div>  
+                    <Footer/>
                 </main>
-                <Footer/>
-            </div>
-
+            {/*modales*/}
+            <Reports/>
             <div className='overlayAlert' style={{ display: alertData.show }}>
                 <AlertMessage message={alertData.message} type={alertData.type} />
             </div>

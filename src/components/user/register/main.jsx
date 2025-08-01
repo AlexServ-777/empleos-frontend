@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import Link from "next/link";
 import Terms_and_Condition from "@/components/user/perfil/functions/terminos_condiciones";
-import { urlBackGlobal } from "@/constants/constants_backend";
+import { urlBackGlobal } from "@/constants/urls";
 import { Context } from "@/app/providers";
 
 export default function Register() {

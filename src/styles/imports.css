@@ -1,0 +1,39 @@
+/*globals*/
+@import "@/styles/globals.css";
+@import "@/styles/index.css";
+
+/*NAV BAR*/
+@import "@/styles/nav_bar/movil.css";
+@import "@/styles/nav_bar/pc.css";
+@import "@/styles/nav_bar/footer.css";
+
+/*items*/
+@import "@/styles/items/all-items.css";
+@import "@/styles/items/oneStyles.css";
+@import "@/styles/items/buscador.css";
+@import "@/styles/items/filters.css";
+@import "@/styles/items/news-form-components.css";
+@import "@/styles/items/reports.css";
+
+
+/*libs*/
+@import "@/styles/libs/button_border.css";
+@import "@/styles/libs/radio_button.css";
+
+/*modals*/
+@import "@/styles/modals/alertMessage.css";
+@import "@/styles/modals/loader.css";
+
+/*others*/
+@import "@/styles/others/bienvenida.css";
+@import "@/styles/others/googleButton.css";
+@import "@/styles/others/phone-input.css";
+@import "@/styles/others/warning.css";
+@import "@/styles/others/widthsPersonalizados.css";
+
+/*user*/
+@import "@/styles/user/barPerfil.css";
+@import "@/styles/user/forgotPassword-send-email.css";
+@import "@/styles/user/loginStyle.css";
+@import "@/styles/user/perfilStyles.css";
+@import "@/styles/user/terminosCondiciones.css";

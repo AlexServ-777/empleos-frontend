@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import Link from "next/link";
 import GoogleLoginButton from "@/components/user/perfil/functions/googleButtonLogin";
 import { Context } from "@/app/providers";
-import { urlBackGlobal } from "@/constants/constants_backend";
+import { urlBackGlobal } from "@/constants/urls";
 
 export default function Login() {
     const {setSession } = useContext(Context);
@@ -46,9 +46,9 @@ export default function Login() {
         }
     }
     return (
-        <section className="container d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
+        <section className="d-flex align-items-center h-100">
             <form className="login-form" autoComplete="off" ref={formRef}>
-                <h1 style={{ fontWeight: "bold" }} className="text-dark">Iniciar Sesión</h1>
+                <h1 style={{ fontWeight: "bold" }} className="text-white">Iniciar Sesión</h1>
 
                 <div className="inputb">
                     <label htmlFor="email">Correo Electrónico</label>

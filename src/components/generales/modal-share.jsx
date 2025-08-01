@@ -1,8 +1,16 @@
 "use client"
+
+import { urlFront } from "@/constants/urls";
+
 export default function Modal_Share({showShareModal, setShowShareModal, tipo, data}){
 
     const handleShare = async (platform) => {
-        const url = window.location.href;
+        const obtener_tipo_id = ()=>{
+            if(tipo==='empleo') return data.id_empleo;
+            if(tipo==='pasantia') return data.id_pasantia;
+            if(tipo==='servicio') return data.id_servicio;
+        }
+        const url = urlFront+`?type=${tipo}&id=${obtener_tipo_id()}`; //asignar los parametros para ser usados en index osea https.../ 
         const text = `¡Mira ${`est${tipo==="pasantia"?"a":"e"} ${tipo}`}: ${data.titulo} en ${data.ciudad}!`;
 
         switch(platform) {

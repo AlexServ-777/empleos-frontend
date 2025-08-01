@@ -14,10 +14,12 @@ export default async function Page() {
             },
         });
         const userInf = await response.json();
-        if(!response.ok){
+        if(response.ok){
+            return <Perfil userInf={userInf}/>
+        }
+        else{
             return redirect("/user/login");
         }
-        return <Perfil userInf={userInf}/>
 
     
 }

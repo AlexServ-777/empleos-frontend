@@ -1,4 +1,4 @@
-import { urlBackGlobal } from "@/constants/constants_backend";
+import { urlBackGlobal } from "@/constants/urls";
 import { State } from 'country-state-city';
 
 /**

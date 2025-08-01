@@ -1,11 +1,16 @@
 "use client"
-import React, { useState } from "react";
-import Link from "next/link";
+import React, { useContext, useEffect, useState } from "react";
 import Filters from "@/components/generales/Filters";
 import Buscador from "@/components/generales/buscador";
-import {useRouter } from "next/navigation";
+import OneEmpleo from "./one";
+import { Context } from "@/app/providers";
+import { urlBackGlobal } from "@/constants/urls";
 
 export default function MostrarEmpleos({empleos}){
+    const {csrf} = useContext(Context);
+    const [showEmpleo, setShowEmpleo] = useState({});
+    const [favorito, setFavorito] = useState(false);
+
     const [filteredEmpleos, setFilteredEmpleos] = useState([]);
     const [filters, setFilters] = useState({
         category: [],
@@ -15,7 +20,6 @@ export default function MostrarEmpleos({empleos}){
         ubicacion: '',
         search: ''
     });
-
     const handleSearch = (searchTerm) => {
         setFilters(prev => ({
             ...prev,
@@ -100,10 +104,40 @@ export default function MostrarEmpleos({empleos}){
         });
         setFilteredEmpleos(empleos??[]);
     };
-    const router = useRouter()
+    const get_is_favorite=async()=>{
+        const empleo = showEmpleo;
+        if(!empleo.id_empleo) return;
+        try{
+        const response = await fetch(urlBackGlobal+'/api/usuarios-c/isFavorito',{
+            method:'POST',credentials:'include',
+            headers:{
+                'x-csrf-token':csrf,
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify({
+                id_recurso:empleo.id_empleo,
+                tipo_recurso:'empleo',
+            })
+        })
+        if(response.ok){
+            const isFav = await response.json();
+            setFavorito(isFav);
+        }
+        else{
+            console.log('failed get favorite');
+            setFavorito(false);
+        }}
+        catch(err){console.error(err)}
+    }
+    useEffect(()=>{
+        if(csrf) {setShowEmpleo(empleos[0])};
+    },[csrf]);
+    useEffect(()=>{
+        get_is_favorite();
+    },[showEmpleo])
     return (
-        <section className="all-items container mb-5" style={{height:"100%"}}>
-            <div className="search-filters-container  row mx-auto">
+        <section className="all-items">
+            <div className="search-filters-container row mb-2">
                 <div className="col-md-6 col-12">
                     <Buscador onSearch={handleSearch} placeholder="Buscar empleos..."/>
                 </div>
@@ -111,15 +145,18 @@ export default function MostrarEmpleos({empleos}){
                     <Filters type="empleos" onFilterChange={handleFilterChange} />
                 </div>
             </div>
-            <ul>
+            <div className="containerUl">
+                <ul>
                 {filteredEmpleos.map((empleo) => (
                     <React.Fragment key={empleo.id_empleo}>
-                        <li>
-                            <div className="tarjeta container row-cols-12 row-cols-md-12 g-4 mb-2">
+                        <li onClick={()=>{
+                            setShowEmpleo(empleo);
+                        }}>
+                            <div className="row-cols-12 row-cols-md-12">
                                 <div className="col">
                                     <div className="card h-100">
-                                        <div className="card-body text-white d-flex">
-                                            <div className="col-md-10 col-8">
+                                        <div className="card-body text-white">
+                                            <div className="content">
                                                 <h5 className="card-title">
                                                     {empleo.titulo}
                                                 </h5>
@@ -128,20 +165,17 @@ export default function MostrarEmpleos({empleos}){
                                                     {empleo.descripcion}
                                                 </p>
                                             </div>
-                                            <div className="col-md-2 gap-1 col-4" style={{display:"flex", flexDirection:"column", justifyContent:"center"}}>
-                                                <Link className="btn btn-info w-100 mx-auto" href={`/empleos/${empleo.id_empleo}`}>VER MAS</Link>
-                                                <Link className="btn btn-success w-100 mx-auto" href={`https://wa.me/${empleo.num_telf}`} target="_blank">
-                                                    <i className="bi bi-whatsapp"></i>
-                                                </Link>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </li>
+                        <hr />
                     </React.Fragment>
                 ))}
-            </ul>
+                </ul>
+                <OneEmpleo empleo={showEmpleo} favorito={favorito} setFavorito={setFavorito} />
+            </div>
         </section>
     );
 }

@@ -1,19 +1,23 @@
 .special-label {
     display: none;
 }
-hr{
+.perfil-container hr{
     height: 5px;
     background-color: white;
 }
 /* Contenedor principal del perfil */
 .perfil-container {
     display: flex;
-    min-height: 100%;
-    position: static;
+    overflow: auto;
     padding: 2rem;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 0px 12px 12px 0px;
     backdrop-filter: blur(10px);
+
+    & .subcontainer{
+        width: 100%;
+        height: 100%;
+    }
 }
 
 .perfil-container form div{

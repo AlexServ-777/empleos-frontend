@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 import PhoneInput from "react-phone-number-input";
-import { urlBackGlobal } from "@/constants/constants_backend";
+import { urlBackGlobal } from "@/constants/urls";
 import { getEstadosFromApi } from "@/utils/locationUtils";
 import { SelectEmpleos } from "@/components/generales/select-forms";
 import { Context } from "@/app/providers";
@@ -62,7 +62,7 @@ export default function NuevoEmpleo(){
     }
 
     return(
-        <section className="container form-container mb-5">
+        <section className="container form-container">
             <h1 className="form-title">PUBLICAR NUEVO EMPLEO</h1>
             <form ref={formRef} className="row g-4 p-4">
                 <FormBody acctionPublicar={publicarEmpleo} setPhone={setPhone} phone={phone}/>

@@ -24,10 +24,10 @@ export default function Perfil({userInf}) {
     return (
         <>
         <meta name="robots" content="noindex, nofollow" />
-        <section style={{display:"flex"}}>
+        <section style={{display:"flex", height:"100%"}}>
             <BarPerfil setSeccion={setSeccion}/>
             <div className="container perfil-container d-flex" style={{justifyContent:"center", alignItems:"center"}}>
-                <div className="h-auto w-100">
+                <div className="subcontainer">
 
                 <menu className="menu d-md-none d-flex" onClick={()=>{
                     if(showMenu==='none'){

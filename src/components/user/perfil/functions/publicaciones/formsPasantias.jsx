@@ -1,5 +1,5 @@
 "use client"
-import { urlBackGlobal } from "@/constants/constants_backend";
+import { urlBackGlobal } from "@/constants/urls";
 import { Context } from "@/app/providers";
 import { getEstadosFromApi } from "@/utils/locationUtils";
 import React, { useContext, useEffect, useRef, useState } from "react";

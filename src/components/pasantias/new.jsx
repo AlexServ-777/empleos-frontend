@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect, useContext, useRef } from 'react';
-import { urlBackGlobal } from '@/constants/constants_backend';
+import { urlBackGlobal } from '@/constants/urls';
 import PhoneInput from "react-phone-number-input";
 import { getEstadosFromApi } from "@/utils/locationUtils";
 import { useRouter } from "next/navigation";
@@ -76,7 +76,7 @@ export default function NewPasantia(){
     }, [csrf]);
 
     return(
-        <section className="container form-container mb-5">
+        <section className="container form-container">
             <h1 className="form-title">PUBLICAR PASANTÍA</h1>
             <form className="row g-4 p-4" ref={formRef}>
                 <FormBody setPhone={setPhone} publicarPasantia={publicarPasantia} phone={phone} estados={estados}/>

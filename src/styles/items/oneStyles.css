@@ -1,116 +1,185 @@
-.containerOne{
-    border-radius: 20px;
-    background-image: linear-gradient(90deg,#ffff, #0000);
+.containerOne {
+    position: relative;
+    overflow-y: auto;
     font-weight: bold;
-    word-break: break-all;
+    padding: 0rem 1rem 0rem 1rem;
+    
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
 }
-@media (max-width: 768px) {
-    .containerOne{
-        background-image: linear-gradient(#ece7e7, #0000);
-    }
+.containerOne .container_head{
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
-.containerOne .buttons{
+.containerOne .header {
     display: flex;
-}
-.containerOne .buttons .btn{
-    border: 0px;
-    width: 30%;
-    display: flex;
-    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(90deg, #0C7075 60%, #0F969C 100%);
+    padding: 1.2rem 2rem 1.2rem 1.5rem;
 }
 
+.containerOne .actions {
+    display: flex;
+    gap: 1.2rem;
+    margin: 1.5rem 0 1.5rem 0;
+    justify-content: center;
+    align-items: center;
+}
+@media (max-width: 992px) {
+  .containerOne {
+    left: 0;
+    right: 0;
+    width: 100vw;
+    max-width: 100vw;
+    border-radius: 0;
+    height: 100vh;
+    top: 0;
+    box-shadow: none;
+  }
+}
+@media (max-width: 992px) {
+  .containerOne .header {
+    padding: 1.2rem 1.2rem 1.2rem 1.2rem;
+  }
+}
+.containerOne .header h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+    margin: 0;
+    flex: 1;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.containerOne .btn_close {
+    border: 0;
+    background: #fff;
+    color: #0C7075;
+    font-size: 1.7rem;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    position: static;
+    margin-left: 1rem;
+    transition: background 0.2s, color 0.2s, transform 0.3s;
+}
+.containerOne .btn_close:hover {
+    background: #0C7075;
+    color: #fff;
+    transform: scale(1.1) rotateZ(90deg);
+}
+.containerOne .actions .action-btn {
+    background: #fff;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: #0C7075;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.containerOne .actions .mark{
+    background: #0F969C;
+    color: #fff;    
+}
+
+.containerOne .actions .action-btn:hover {
+    background: #0F969C;
+    color: #fff;
+    transform: scale(1.1);
+}
+.containerOne .actions .action-btn[data-tooltip]:hover:after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -2.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #222;
+    color: #fff;
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0.95;
+    z-index: 20;
+}
+.containerOne .section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.containerOne .section:last-child {
+    border-bottom: none;
+}
+.containerOne .section-title {
+    font-size: 1.1rem;
+    color: #0F969C;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+.containerOne .badge {
+    display: inline-block;
+    background: linear-gradient(90deg, #0C7075, #0F969C);
+    color: #fff;
+    border-radius: 8px;
+    padding: 0.3rem 0.8rem;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-right: 0.7rem;
+    margin-bottom: 0.3rem;
+}
+.containerOne .info {
+    color: #eee;
+    font-size: 1.05rem;
+    margin-bottom: 0.2rem;
+    word-break: break-word;
+    white-space: pre-line;
+}
+
+
+
+
+
+
+
+
+
 /*Diseno de los 3 iconos del pie de la pagina*/
-.containerOne .buttons .btn .whatsapp{
+.containerOne .buttons .whatsapp{
     background: linear-gradient(#009929, #5ccb5f);
     text-shadow: 5 5px 5px green;
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
 }
-.containerOne .buttons .btn .set-fav{
+.containerOne .buttons .set-fav{
     background: linear-gradient(#990000, #e60000);
     text-shadow: 1 5px 5px red;
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
 }
-.containerOne .buttons .btn .del-fav{
+.containerOne .buttons .del-fav{
     background: linear-gradient(#F9A825, #FFEB3B);
     text-shadow: 1 5px 5px yellow;
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
 }
-.containerOne .buttons .btn .share{
+.containerOne .buttons .share{
     background: linear-gradient(#11388e, #174abd);
     text-shadow: 1 5px 5px blue;
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
 }
-.icon{
-    position: absolute;
-    font-size: 50px;
-    transition: transform 0.3s ease;
-  }
-.icon:hover{
-    transform: scale(1.7);
-    background-position: top;
-  }
-  .tittle{
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    background: linear-gradient(90deg, #0C7075, #0F969C);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: titleGradient 3s ease infinite;
-  }
-  
-  @keyframes titleGradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-  
-  .containerOne h2 {
-    font-weight: bold;
-    background: linear-gradient(90deg, #0C7075, #0F969C);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: textGradient 3s ease infinite;
-  }
-  
-  .containerOne h3 {
-    font-weight: bold;
-    background: linear-gradient(90deg, #0F969C, #0C7075);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: textGradient 3s ease infinite reverse;
-    color: #0F969C;
-  }
-  
-  @keyframes textGradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-  
-  .imgPrincipal{
-    opacity: 0;
-    border-radius: 40px;
-    transition: opacity 1s ease;
-    transition-delay: 1s;
-  }
-  .imgPrincipal.show{
-    opacity: 1;
-  }
   
   /* Diseño rectangular moderno para el modal de compartir */
   .modal-backdrop {
@@ -200,13 +269,6 @@
           rgba(255, 255, 255, 0.1),
           transparent 70%
       );
-      animation: shine 3s infinite;
-  }
-  
-  @keyframes shine {
-      0% { transform: translateX(-100%); }
-      50% { transform: translateX(100%); }
-      100% { transform: translateX(100%); }
   }
   
   .share-modal .modal-title {

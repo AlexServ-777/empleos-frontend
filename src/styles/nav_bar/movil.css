@@ -1,0 +1,184 @@
+/*Movil*/
+.container_movil {
+    & .movil {
+        border-radius: 15px;
+        background-image: linear-gradient(180deg, rgba(7, 46, 51, 1) 0%, rgba(44, 14, 51, 0.8) 87%);
+    }
+
+    & .menu {
+        height: 50px;
+        width: 50px;
+        background: linear-gradient(45deg, #05161a, #072E33);
+        border-radius: 50%;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        & .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 2px;
+            border-radius: 3px;
+            background: linear-gradient(90deg, #ff7900, #f8b800);
+            transition: all 0.3s ease;
+        }
+    }
+}
+
+.menuInterno {
+    align-content: center;
+    left: 100%;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    z-index: 999;
+    height: 100vh;
+    width: 85%;
+    position: fixed;
+    background: linear-gradient(135deg, #05161a 0%, #072E33 100%);
+    padding: 2rem 1.5rem;
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
+
+    /*ANIMACION PARA ABRIR Y CERRAR EL MENU DESPLEGABLE*/
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &.open {
+        left: 15%;
+    }
+}
+
+.menuInterno ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    & li {
+        font-weight: 600;
+        font-size: 1.1rem;
+        padding: 1rem;
+        margin: 0.5rem 0;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+
+        &:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        & a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        & i {
+            font-size: 1.2rem;
+            color: #ff7900;
+        }
+    }
+}
+
+
+.menuInterno .linkLogin {
+    text-decoration: none;
+    background: linear-gradient(45deg, #ff7900, #f8b800);
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    color: white;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.menuInterno .linkLogin:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 121, 0, 0.3);
+}
+
+
+.menuInterno i.bi-x-circle:hover {
+    color: #f8b800;
+    transform: rotate(90deg);
+}
+
+.menuInterno .dropdown {
+    position: relative;
+    z-index: 1001;
+}
+
+.menuInterno .dropdown-menu {
+    position: absolute !important;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #05161a 0%, #072E33 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    z-index: 1000;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.menuInterno .dropdown-menu::-webkit-scrollbar {
+    width: 8px;
+}
+
+.menuInterno .dropdown-menu::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.menuInterno .dropdown-menu::-webkit-scrollbar-thumb {
+    background: rgba(255, 121, 0, 0.5);
+    border-radius: 4px;
+}
+
+.menuInterno .dropdown-menu::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 121, 0, 0.7);
+}
+
+.menuInterno .dropdown-menu .dropdown-item {
+    color: white !important;
+    -webkit-text-fill-color: white !important;
+    background: none;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.menuInterno .dropdown-menu .dropdown-item:hover {
+    background: rgba(255, 121, 0, 0.1);
+    transform: translateX(5px);
+}
+
+.menuInterno .linkLogin {
+    position: relative;
+    z-index: 1;
+}
+
+.menuInterno i.bi-x-circle {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    color: #ff7900;
+    font-size: 2rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}

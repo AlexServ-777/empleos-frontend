@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { Context } from '@/app/providers';
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
-import { urlBackGlobal } from '@/constants/constants_backend';
+import { urlBackGlobal } from '@/constants/urls';
 
 export default function AccountActions() {
     const router = useRouter();

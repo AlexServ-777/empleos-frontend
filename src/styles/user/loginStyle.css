@@ -7,10 +7,9 @@
 }
 
 .login-form {
-    width: 360px;
-    height: 560px;
-    background: #f1f1f1;
-    padding: 80px 40px;
+    width: 500px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 2rem 3rem 2rem 3rem;
     border-radius: 10px;
     position: relative;
     z-index: 0;
@@ -89,6 +88,7 @@
     cursor: pointer;
     transition: 0.5s;
     font-size: 16px;
+    border-radius: 20px;
 }
 
 .loginbtn:hover {
@@ -96,7 +96,10 @@
 }
 
 .bottom-text {
-    margin-top: 60px;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: ;
     text-align: center;
     font-size: 13px;
 }

@@ -3,7 +3,7 @@ import React, { useContext, useRef, useEffect } from 'react';
 import { Context } from '@/app/providers';
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
-import { urlBackGlobal } from '@/constants/constants_backend';
+import { urlBackGlobal } from '@/constants/urls';
 import AccountActions from './AccountActions';
 
 export default function UserInfo({ userInf }) {

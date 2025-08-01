@@ -1,7 +1,7 @@
 "use client"
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Context } from '@/app/providers';
-import { urlBackGlobal } from '@/constants/constants_backend';
+import { urlBackGlobal } from '@/constants/urls';
 import FormsEmpleos from './publicaciones/formsEmpleos';
 import FormsPasantias from './publicaciones/formsPasantias';
 import FormsServicios from './publicaciones/formsServicios';
