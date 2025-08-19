@@ -1,3 +1,5 @@
+/*libs*/
+
 /*globals*/
 @import "@/styles/globals.css";
 @import "@/styles/index.css";
@@ -22,7 +24,7 @@
 
 /*modals*/
 @import "@/styles/modals/alertMessage.css";
-@import "@/styles/modals/loader.css";
+@import "@/styles/modals/share_modal.css";
 
 /*others*/
 @import "@/styles/others/bienvenida.css";
@@ -37,3 +39,7 @@
 @import "@/styles/user/loginStyle.css";
 @import "@/styles/user/perfilStyles.css";
 @import "@/styles/user/terminosCondiciones.css";
+
+/*loaders*/
+@import "@/styles/loaders/hamster.css";
+@import "@/styles/loaders/loader.css";

@@ -2,10 +2,10 @@
 import { useState, useContext } from "react";
 import { urlBackGlobal } from "@/constants/urls";
 import { Context } from "@/app/providers";
-import Modal_Share from "../generales/modal-share";
+import Modal_Share from "../1generales/modals/modal-share";
 
-export default function OneServicio({ servicio, favorito, setFavorito }) {
-    const { setAlertData,setReportData, csrf } = useContext(Context);
+export default function OneServicio({ servicio, favorito, setFavorito, one_item_ref, setShowServicio }) {
+    const { setAlertData, setReportData, csrf } = useContext(Context);
     const [showShareModal, setShowShareModal] = useState(false);
 
     const fun_set_fav = async () => {
@@ -46,11 +46,19 @@ export default function OneServicio({ servicio, favorito, setFavorito }) {
         }
     }
 
-    return (
-        <section className="containerOne" >
+    return (<>
+
+        <section className="containerOne" ref={one_item_ref}>
             <section className="container_head">
                 <div className="header">
                     <h1>{servicio.titulo}</h1>
+                    <button className="btn_close d-lg-none"
+                        onClick={() => {
+                            one_item_ref.current.classList.remove('show');
+                            setShowServicio({})
+                        }}>
+                        <i className="bi bi-x-lg"></i>
+                    </button>
                 </div>
                 <div className="actions">
                     <button className="action-btn" data-tooltip="Contactar por WhatsApp" onClick={() => window.open(`https://wa.me/${servicio.num_telf}`, '_blank')}>
@@ -63,36 +71,41 @@ export default function OneServicio({ servicio, favorito, setFavorito }) {
                         <i className="bi bi-share-fill"></i>
                     </button>
                     <button className="action-btn" data-tooltip="Reportar" onClick={() => setReportData({
-                        id:servicio.id_servicio,
-                        type:'servicio',
-                        message:null,
-                        show:true,
+                        id: servicio.id_servicio,
+                        type: 'servicio',
+                        message: null,
+                        show: true,
                     })}>
                         <i className="bi bi-flag"></i>
                     </button>
                 </div>
             </section>
-            <div className="section">
-                <h3 className="section-title">Descripción</h3>
-                <p className="info">{servicio.descripcion}</p>
-            </div>
-            <div className="section">
-                <span className="badge">{servicio.costo ? `Costo: ${servicio.costo}` : 'Costo no definido'}</span>
-                <span className="badge">{servicio.modalidad}</span>
-            </div>
-            <div className="section">
-                <h3 className="section-title">Ciudad</h3>
-                <p className="info">{servicio.ciudad}</p>
-            </div>
-            <div className="section">
-                <h3 className="section-title">Ubicación</h3>
-                <p className="info">{servicio.ubicacion ? servicio.ubicacion : "No Definido"}</p>
-            </div>
-            <div className="section">
-                <h3 className="section-title">Número de Teléfono</h3>
-                <p className="info">{servicio.num_telf}</p>
-            </div>
-            <Modal_Share showShareModal={showShareModal} setShowShareModal={setShowShareModal} tipo={"servicio"} data={servicio} />
+
+            <section className="body_one">
+                <div className="section">
+                    <h3 className="section-title">Descripción</h3>
+                    <p className="info">{servicio.descripcion}</p>
+                </div>
+                <div className="section">
+                    <span className="badge">{servicio.costo ? `Costo: ${servicio.costo}` : 'Costo no definido'}</span>
+                    <span className="badge">{servicio.modalidad}</span>
+                </div>
+                <div className="section">
+                    <h3 className="section-title">Ciudad</h3>
+                    <p className="info">{servicio.ciudad}</p>
+                </div>
+                <div className="section">
+                    <h3 className="section-title">Ubicación</h3>
+                    <p className="info">{servicio.ubicacion ? servicio.ubicacion : "No Definido"}</p>
+                </div>
+                <div className="section">
+                    <h3 className="section-title">Número de Teléfono</h3>
+                    <p className="info">{servicio.num_telf}</p>
+                </div>
+            </section>
         </section>
+
+        <Modal_Share showShareModal={showShareModal} setShowShareModal={setShowShareModal} tipo={"servicio"} data={servicio} />
+    </>
     );
 }

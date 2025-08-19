@@ -1,50 +1,53 @@
-.all-items{
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-}
-
-.containerUl{
+.containerUl {
     overflow: hidden;
     display: flex;
     flex-grow: 1;
     gap: 0.3rem;
 
-    & ul{
+    & ul {
         flex: 0.8;
-    } & .containerOne{
-        flex: 1;   
     }
-    & hr{
+
+    & .containerOne {
+        flex: 1;
+    }
+
+    & hr {
         margin: 5px 0 5px 0;
     }
 }
-@media (max-width:992px) {
-    .containerUl{
+
+@media (max-width: 992px) {
+    .containerUl {
         flex-direction: column;
-    }
-    .containerUl ul{
-        width: 100%;
-    }
-    .all-items .containerOne{
-        background: rgba(0, 0, 0, 0.8);
-        position: fixed;
-        width: 100%;
-        top: 20%;
-        z-index: 5;
-        height: 80vh;
-        border-radius: 0;
-        overflow-y: auto;
+        
+        & ul{
+            flex: 1;
+            width: 100%;
+        }
     }
 }
 
-.all-items ul {
-    overflow-y: auto;
-    overscroll-behavior: contain; /*para que el scrooll solo afecte al contenerdor y no al global*/
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.all-items {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+
+    & ul {
+        overflow-y: auto;
+        overscroll-behavior: contain; /*para que el scrooll solo afecte al contenerdor y no al global*/
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    & li{
+        cursor: pointer;
+    }
+    & .selected{
+        background: rgba(0, 0, 0, 0.5);
+    }
 }
+
 
 .all-items .card {
     background: rgba(255, 255, 255, 0.05);
@@ -57,9 +60,7 @@
 .all-items .card:hover {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
-.all-items li{
-    cursor: pointer;
-}
+
 .all-items .card-body {
     padding: 1.5rem;
 }
@@ -111,4 +112,4 @@
         padding: 0.4rem 0.8rem;
         font-size: 0.9rem;
     }
-} 
+}

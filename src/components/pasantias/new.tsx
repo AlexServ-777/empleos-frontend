@@ -5,12 +5,12 @@ import PhoneInput from "react-phone-number-input";
 import { getEstadosFromApi } from "@/utils/locationUtils";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
-import { SelectPasantias } from '@/components/generales/select-forms';
+import { SelectPasantias } from '@/components/1generales/select-forms';
 import { Context } from '@/app/providers';
 
 export default function NewPasantia(){
     const urlBack = urlBackGlobal;
-    const formRef = useRef("");
+    const formRef = useRef<HTMLFormElement>(null);
     const router = useRouter();
     const {csrf} = useContext(Context);
     const [phone, setPhone] = useState("");
@@ -96,7 +96,7 @@ function FormBody({setPhone, publicarPasantia, phone, estados}){
                 <div className="row g-3">
                     <div className="col-md-6 col-12">
                         <label className="form-label">TÍTULO DE LA PASANTÍA (*)</label>
-                        <input className="form-control form-input" name="titulo" type="text" required maxLength="50"
+                        <input className="form-control form-input" name="titulo" type="text" required maxLength={50}
                                placeholder="Ej: Pasante de Desarrollo Web"/>
                     </div>
                     <div className="col-md-3 col-12">
@@ -137,7 +137,7 @@ function FormBody({setPhone, publicarPasantia, phone, estados}){
                     <div className="col-md-5 col-12">
                         <label className="form-label">UBICACIÓN ESPECÍFICA (opcional)</label>
                         <input className="form-control form-input" name="ubicacion" type="text"
-                               placeholder="Ej: Zona Centro, Calle Principal #123" maxLength="50"/>
+                               placeholder="Ej: Zona Centro, Calle Principal #123" maxLength={50}/>
                     </div>
                     <div className="col-md-3 col-12">
                         <label className="form-label">ESTADO (*)</label>
@@ -162,7 +162,7 @@ function FormBody({setPhone, publicarPasantia, phone, estados}){
                 <div className="row g-3">
                     <div className="col-md-4 col-12">
                         <label className="form-label">DURACIÓN (*)</label>
-                        <input className="form-control form-input" name="duracion" type="text" required maxLength="15"
+                        <input className="form-control form-input" name="duracion" type="text" required maxLength={15}
                                placeholder="Ej: 3 meses"/>
                     </div>
                     <div className="col-md-4 col-12">
@@ -187,7 +187,7 @@ function FormBody({setPhone, publicarPasantia, phone, estados}){
                             name="requisitos" 
                             placeholder="Lista los requisitos para la pasantía:&#10;- Nivel de estudios&#10;- Conocimientos necesarios&#10;- Habilidades requeridas..."
                             required 
-                            maxLength="1000"
+                            maxLength={1000}
                         />
                     </div>
                     <div className="col-md-6 col-12">
@@ -197,7 +197,7 @@ function FormBody({setPhone, publicarPasantia, phone, estados}){
                             name="descripcion" 
                             placeholder="Describe las actividades y beneficios:&#10;- Actividades a realizar&#10;- Aprendizaje esperado&#10;- Beneficios ofrecidos..."
                             required 
-                            maxLength="1000"
+                            maxLength={1000}
                         />
                     </div>
                 </div>
@@ -217,22 +217,4 @@ function FormBody({setPhone, publicarPasantia, phone, estados}){
             </div>
         </>
     );
-}
-
-export async function getServerSideProps(context) {
-    const response = await fetch(process.env.url_front+"/back/api/auth/verificar-token",{
-        headers:{
-            Cookie:context.req.headers.cookie
-        }
-    })
-    if(response.ok){
-        return {props:{}}
-    }else{
-        return {
-            redirect:{
-                destination:"/user/login",
-                permanent:false
-            }
-        }
-    }
 }

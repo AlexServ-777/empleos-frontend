@@ -4,10 +4,10 @@ import Link from 'next/link';
 export default function ContactDev() {
 
     return (
-        <div className="container py-5">
-            <div className="row justify-content-center">
-                <div className="col-lg-8">
-                    <div className="card shadow-lg border-0 rounded-lg">
+        <div className="container py-5 h-100">
+            <div className="row justify-content-center h-100">
+                <div className="col-lg-8 h-100">
+                    <div className="card shadow-lg border-0 rounded-lg h-100 overflow-auto">
                         <div className="card-header bg-primary text-white text-center py-4">
                             <h2 className="mb-0">Contacto con Desarrolladores</h2>
                         </div>
@@ -34,8 +34,8 @@ export default function ContactDev() {
                                         <i className="bi bi-linkedin fs-3 me-3 text-primary"></i>
                                         <div>
                                             <h5 className="mb-1">LinkedIn</h5>
-                                            <a href="https://www.linkedin.com/in/alex-daniel-apaza-ramirez-512579347" target='_blank' className="text-decoration-none text-break">
-                                                linkedin.com/in/alex-daniel-apaza-ramirez
+                                            <a href="https://www.linkedin.com/in/alex-daniel-gonzales-ramirez-512579347/" target='_blank' className="text-decoration-none text-break">
+                                            linkedin.com/in/alex-daniel-gonzales-ramirez-512579347/
                                             </a>
                                         </div>
                                     </div>

@@ -5,12 +5,12 @@ import Swal from "sweetalert2";
 import PhoneInput from "react-phone-number-input";
 import { urlBackGlobal } from "@/constants/urls";
 import { getEstadosFromApi } from "@/utils/locationUtils";
-import { SelectEmpleos } from "@/components/generales/select-forms";
+import { SelectEmpleos } from "@/components/1generales/select-forms";
 import { Context } from "@/app/providers";
 
 export default function NuevoEmpleo(){
     const urlBackEnd = urlBackGlobal;
-    const formRef = useRef();
+    const formRef = useRef<HTMLFormElement>(null);
     const router = useRouter();
     const {csrf} = useContext(Context);
     const [phone, setPhone] = useState("");
@@ -19,8 +19,8 @@ export default function NuevoEmpleo(){
         if(!formRef.current.reportValidity()) return;
         const formData = new FormData(formRef.current);
         formData.append("num_telf", phone);
-        const data = Object.fromEntries(formData.entries());
-        if(data.num_telf.length < 6||!phone||phone.length>50) {
+        const data:any = Object.fromEntries(formData.entries());
+        if((data.num_telf as string).length < 6||!phone||phone.length>50) {
             await Swal.fire({
                 title: "NUMERO DE TELEFONO INVALIDO",
                 text: "Por favor ingrese un numero de telefono valido",
@@ -95,7 +95,7 @@ function FormBody({acctionPublicar, setPhone, phone}){
                     <input defaultValue={"none"} name="pais" hidden/>
                     <div className="col-md-6 col-12">
                         <label className="form-label">TÍTULO DEL PUESTO (*)</label>
-                        <input className="form-control form-input text-white" name="titulo" type="text" required minLength="2" maxLength="50"
+                        <input className="form-control form-input text-white" name="titulo" type="text" required minLength={2} maxLength={50}
                             placeholder="Ej: Desarrollador Frontend Senior" />
                     </div>
                     <div className="col-md-3 col-6">
@@ -149,7 +149,7 @@ function FormBody({acctionPublicar, setPhone, phone}){
                     <div className="col-12">
                         <label className="form-label">UBICACIÓN ESPECÍFICA (opcional)</label>
                         <input className="form-control form-input" name="ubicacion"
-                            placeholder="Ej: Zona Centro, Calle Principal #123" maxLength="50" />
+                            placeholder="Ej: Zona Centro, Calle Principal #123" maxLength={50} />
                     </div>
                 </div>
             </div>
@@ -164,7 +164,7 @@ function FormBody({acctionPublicar, setPhone, phone}){
                             className="form-control form-input form-textarea"
                             name="requisitos"
                             placeholder="Lista los requisitos principales del puesto:&#10;- Experiencia mínima de X años&#10;- Conocimientos en...&#10;- Habilidades específicas..."
-                            maxLength="1000"
+                            maxLength={1000}
                         />
                     </div>
                     <div className="col-md-6 col-12">
@@ -173,7 +173,7 @@ function FormBody({acctionPublicar, setPhone, phone}){
                             className="form-control form-input form-textarea"
                             name="descripcion"
                             placeholder="Describe las responsabilidades y beneficios del puesto:&#10;- Principales funciones&#10;- Beneficios ofrecidos&#10;- Horarios&#10;- Otros detalles relevantes"
-                            maxLength="1000"
+                            maxLength={1000}
                         />
                     </div>
                 </div>

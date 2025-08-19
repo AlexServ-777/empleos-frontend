@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import PhoneInput from "react-phone-number-input";
 import { getEstadosFromApi } from "@/utils/locationUtils";
 import { urlBackGlobal } from "@/constants/urls";
-import { SelectEmpleos } from '@/components/generales/select-forms';
+import { SelectEmpleos } from '@/components/1generales/select-forms';
 
 export default function FormsEmpleos({ empleo, userInf, refreshEmpleos }) {
     const {csrf } = useContext(Context);

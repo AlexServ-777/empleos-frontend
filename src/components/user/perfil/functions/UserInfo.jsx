@@ -1,5 +1,5 @@
 "use client"
-import React, { useContext, useRef, useEffect } from 'react';
+import React, { useContext, useRef } from 'react';
 import { Context } from '@/app/providers';
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";

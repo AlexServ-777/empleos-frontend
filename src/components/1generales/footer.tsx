@@ -20,7 +20,7 @@ export default function Footer() {
                     </ul>
             </div>
             <div className="text-center">
-                <span>© 2025 Copyright: AlexServCorp</span>
+                <span>© 2025 Copyright: AlexServ</span>
                 <a href="https://jobget.vercel.app/"> JobGet-Lat.com</a>
             </div>
             

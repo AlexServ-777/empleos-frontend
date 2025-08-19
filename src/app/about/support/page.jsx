@@ -4,10 +4,10 @@ import Link from 'next/link';
 
 export default function Support() {
     return (
-        <div className="container py-5">
-            <div className="row justify-content-center">
-                <div className="col-lg-8">
-                    <div className="card shadow-lg border-0 rounded-lg">
+        <div className="container py-5 h-100">
+            <div className="row justify-content-center h-100 ">
+                <div className="col-lg-8 h-100">
+                    <div className="card shadow-lg border-0 rounded-lg h-100 overflow-auto">
                         <div className="card-header bg-primary text-white text-center py-4">
                             <h2 className="mb-0">Soporte Técnico</h2>
                         </div>

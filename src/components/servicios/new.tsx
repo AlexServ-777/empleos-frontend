@@ -6,12 +6,12 @@ import Swal from "sweetalert2";
 import PhoneInput from "react-phone-number-input";
 import { urlBackGlobal } from "@/constants/urls";
 import { getEstadosFromApi } from "@/utils/locationUtils";
-import { SelectServicios } from "@/components/generales/select-forms";
+import { SelectServicios } from "@/components/1generales/select-forms";
 
 export default function NewService(){
     const urlBackEnd = urlBackGlobal;
     const router = useRouter();
-    const formRef = useRef(null);
+    const formRef = useRef<HTMLFormElement>(null);
     const {csrf} = useContext(Context);
     const [estados, setEstados] = useState([]);
     const [phone, setPhone] = useState("");
@@ -82,7 +82,7 @@ export default function NewService(){
                     <div className="col-md-6">
                         <label className="form-label">TÍTULO DEL SERVICIO (*)</label>
                         <input className="form-control form-input" required name="titulo"
-                               placeholder="Ej: Desarrollo de Aplicaciones Web" maxLength="50"/>
+                               placeholder="Ej: Desarrollo de Aplicaciones Web" maxLength={50}/>
                     </div>
                     <div className="col-md-3">
                         <label className="form-label">ÁREA (*)</label>
@@ -133,7 +133,7 @@ export default function NewService(){
                     <div className="col-md-4">
                         <label className="form-label">UBICACIÓN ESPECÍFICA (opcional)</label>
                         <input type="text" className="form-control form-input" name="ubicacion"
-                               placeholder="Ej: Zona Centro, Calle Principal #123" maxLength="50"/>
+                               placeholder="Ej: Zona Centro, Calle Principal #123" maxLength={50}/>
                     </div>
                 </div>
             </div>
@@ -157,7 +157,7 @@ export default function NewService(){
                             required 
                             name="descripcion"
                             placeholder="Describe tu servicio en detalle:&#10;- ¿Qué ofreces exactamente?&#10;- ¿Cuál es tu experiencia?&#10;- ¿Qué incluye el servicio?&#10;- Tiempo estimado de entrega&#10;- Condiciones especiales"
-                            maxLength="1000"
+                            maxLength={1000}
                         />
                     </div>
                 </div>
@@ -177,24 +177,4 @@ export default function NewService(){
             </div>
         </form>
     </section>);
-}
-export async function getServerSideProps(context){
-    const response = await fetch(process.env.url_front+"/back/api/auth/verificar-token",{
-        headers:{
-            Cookie:context.req.headers.cookie
-        }
-    });
-    if(response.ok){
-        return{
-            props:{}
-        }
-    }
-    else{
-        return{
-            redirect:{
-                destination:"/user/login",
-                permanent:false
-            }
-        }
-    }
 }

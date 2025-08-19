@@ -2,9 +2,9 @@
 import { useContext, useState } from "react";
 import { Context } from "@/app/providers";
 import { urlBackGlobal } from "@/constants/urls";
-import Modal_Share from "../generales/modal-share";
+import Modal_Share from "../1generales/modals/modal-share";
 
-export default function OnePasantias({ pasantia, favorito, setFavorito }) {
+export default function OnePasantias({ pasantia, favorito, setFavorito, one_item_ref, setShowPasantia }) {
     const urlBack = urlBackGlobal;
     const { csrf, setAlertData, setReportData } = useContext(Context);
     const [showShareModal, setShowShareModal] = useState(false);
@@ -46,12 +46,18 @@ export default function OnePasantias({ pasantia, favorito, setFavorito }) {
             setFavorito(true);
         }
     }
-
     return (
-        <section className="containerOne">
+        <>
+        <section className="containerOne" ref={one_item_ref}>
             <section className="container_head">
                 <div className="header">
                     <h1>{pasantia.titulo}</h1>
+                    <button className="btn_close d-lg-none"
+                        onClick={() => {
+                            one_item_ref.current.classList.remove('show');
+                            setShowPasantia({})}}>
+                        <i className="bi bi-x-lg"></i>
+                    </button>
                 </div>
                 <div className="actions">
                     <button className="action-btn" data-tooltip="Contactar por WhatsApp" onClick={() => window.open(`https://wa.me/${pasantia.num_telf}`, '_blank')}>
@@ -73,35 +79,38 @@ export default function OnePasantias({ pasantia, favorito, setFavorito }) {
                     </button>
                 </div>
             </section>
-            <div className="section">
-                <h3 className="section-title">Descripción</h3>
-                <p className="info">{pasantia.descripcion}</p>
-            </div>
-            <div className="section">
-                <h3 className="section-title">Requisitos</h3>
-                <p className="info">{pasantia.requisitos}</p>
-            </div>
-            <div className="section">
-                <span className="badge">{pasantia.duracion ? `Duracion: ${pasantia.duracion}` : 'Salario no definido'}</span>
-                <span className="badge">{pasantia.modalidad}</span>
-            </div>
-            <div className="section">
-                <span className="badge">{`Fecha de Inicio: ${new Date(pasantia.fecha_inicio).toLocaleDateString()}`}</span>
-                <span className="badge">{`Fecha fin: ${new Date(pasantia.fecha_fin).toLocaleDateString()}`}</span>
-            </div>
-            <div className="section">
-                <h3 className="section-title">Ciudad</h3>
-                <p className="info">{pasantia.ciudad}</p>
-            </div>
-            <div className="section">
-                <h3 className="section-title">Ubicación</h3>
-                <p className="info">{pasantia.ubicacion ? pasantia.ubicacion : "No Definido"}</p>
-            </div>
-            <div className="section">
-                <h3 className="section-title">Número de Teléfono</h3>
-                <p className="info">{pasantia.num_telf}</p>
-            </div>
-            <Modal_Share showShareModal={showShareModal} setShowShareModal={setShowShareModal} tipo={"pasantia"} data={pasantia} />
+            <section className="body_one">
+                <div className="section">
+                    <h3 className="section-title">Descripción</h3>
+                    <p className="info">{pasantia.descripcion}</p>
+                </div>
+                <div className="section">
+                    <h3 className="section-title">Requisitos</h3>
+                    <p className="info">{pasantia.requisitos}</p>
+                </div>
+                <div className="section">
+                    <span className="badge">{pasantia.duracion ? `Duracion: ${pasantia.duracion}` : 'Salario no definido'}</span>
+                    <span className="badge">{pasantia.modalidad}</span>
+                </div>
+                <div className="section">
+                    <span className="badge">{`Fecha de Inicio: ${new Date(pasantia.fecha_inicio).toLocaleDateString()}`}</span>
+                    <span className="badge">{`Fecha fin: ${new Date(pasantia.fecha_fin).toLocaleDateString()}`}</span>
+                </div>
+                <div className="section">
+                    <h3 className="section-title">Ciudad</h3>
+                    <p className="info">{pasantia.ciudad}</p>
+                </div>
+                <div className="section">
+                    <h3 className="section-title">Ubicación</h3>
+                    <p className="info">{pasantia.ubicacion ? pasantia.ubicacion : "No Definido"}</p>
+                </div>
+                <div className="section">
+                    <h3 className="section-title">Número de Teléfono</h3>
+                    <p className="info">{pasantia.num_telf}</p>
+                </div>
+            </section>
         </section>
+        <Modal_Share showShareModal={showShareModal} setShowShareModal={setShowShareModal} tipo={"pasantia"} data={pasantia} />
+        </>
     );
 }

@@ -2,9 +2,9 @@
 import { useState, useContext } from "react";
 import { urlBackGlobal } from "@/constants/urls";
 import { Context } from "@/app/providers";
-import Modal_Share from "../generales/modal-share";
+import Modal_Share from "../1generales/modals/modal-share";
 
-export default function OneEmpleo({ empleo, favorito, setFavorito }) {
+export default function OneEmpleo({ empleo, favorito, setFavorito, one_item_ref, setShowEmpleo }) {
     const urlBack = urlBackGlobal;
     const { csrf, setAlertData, setReportData } = useContext(Context);
     const [showShareModal, setShowShareModal] = useState(false);
@@ -49,10 +49,18 @@ export default function OneEmpleo({ empleo, favorito, setFavorito }) {
         }
     }
     return (
-        <section className="containerOne">
+        <>
+        <section className="containerOne" ref={one_item_ref}>
             <section className="container_head">
                 <div className="header">
                     <h1>{empleo.titulo}</h1>
+                    <button className="d-lg-none btn_close"
+                        onClick={() => {
+                            one_item_ref.current.classList.remove('show');
+                            setShowEmpleo({});
+                        }}>
+                        <i className="bi bi-x-lg"></i>
+                    </button>
                 </div>
 
                 <div className="actions">
@@ -76,31 +84,36 @@ export default function OneEmpleo({ empleo, favorito, setFavorito }) {
                     </button>
                 </div>
             </section>
-            <div className="section">
-                <h3 className="section-title">Descripción</h3>
-                <p className="info">{empleo.descripcion}</p>
-            </div>
-            <div className="section">
-                <h3 className="section-title">Requisitos</h3>
-                <p className="info">{empleo.requisitos}</p>
-            </div>
-            <div className="section">
-                <span className="badge">{empleo.salario ? `Salario: ${empleo.salario}` : 'Salario no definido'}</span>
-                <span className="badge">{empleo.modalidad}</span>
-            </div>
-            <div className="section">
-                <h3 className="section-title">Ciudad</h3>
-                <p className="info">{empleo.ciudad}</p>
-            </div>
-            <div className="section">
-                <h3 className="section-title">Ubicación</h3>
-                <p className="info">{empleo.ubicacion ? empleo.ubicacion : "No Definido"}</p>
-            </div>
-            <div className="section">
-                <h3 className="section-title">Número de Teléfono</h3>
-                <p className="info">{empleo.num_telf}</p>
-            </div>
-            <Modal_Share showShareModal={showShareModal} setShowShareModal={setShowShareModal} tipo={"empleo"} data={empleo} />
+
+            <section className="body_one">
+                <div className="section">
+                    <h3 className="section-title">Descripción</h3>
+                    <p className="info">{empleo.descripcion}</p>
+                </div>
+                <div className="section">
+                    <h3 className="section-title">Requisitos</h3>
+                    <p className="info">{empleo.requisitos}</p>
+                </div>
+                <div className="section">
+                    <span className="badge">{empleo.salario ? `Salario: ${empleo.salario}` : 'Salario no definido'}</span>
+                    <span className="badge">{empleo.modalidad}</span>
+                </div>
+                <div className="section">
+                    <h3 className="section-title">Ciudad</h3>
+                    <p className="info">{empleo.ciudad}</p>
+                </div>
+                <div className="section">
+                    <h3 className="section-title">Ubicación</h3>
+                    <p className="info">{empleo.ubicacion ? empleo.ubicacion : "No Definido"}</p>
+                </div>
+                <div className="section">
+                    <h3 className="section-title">Número de Teléfono</h3>
+                    <p className="info">{empleo.num_telf}</p>
+                </div>
+            </section>
         </section>
+        
+        <Modal_Share showShareModal={showShareModal} setShowShareModal={setShowShareModal} tipo={"empleo"} data={empleo} />
+        </>
     );
 }

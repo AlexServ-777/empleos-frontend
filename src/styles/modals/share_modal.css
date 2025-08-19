@@ -1,0 +1,269 @@
+/* Diseño rectangular moderno para el modal de compartir */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85) !important;
+    backdrop-filter: blur(10px) saturate(180%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: backdropReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.share-modal {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    width: 95%;
+    max-width: 600px;
+    transform: translateY(30px) scale(0.95);
+    opacity: 0;
+    animation: modalReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        0 30px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    position: relative;
+}
+
+.share-modal::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0.1),
+            transparent 70%);
+    pointer-events: none;
+}
+
+@keyframes backdropReveal {
+    from {
+        backdrop-filter: blur(0) saturate(100%);
+        background: rgba(0, 0, 0, 0);
+    }
+
+    to {
+        backdrop-filter: blur(10px) saturate(180%);
+        background: rgba(0, 0, 0, 0.85);
+    }
+}
+
+@keyframes modalReveal {
+    from {
+        transform: translateY(30px) scale(0.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+.share-modal .modal-header {
+    background: linear-gradient(90deg,
+            rgba(44, 62, 80, 0.95) 0%,
+            rgba(52, 152, 219, 0.95) 100%);
+    padding: 1.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.share-modal .modal-header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0.1),
+            transparent 70%);
+}
+
+.share-modal .modal-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 2;
+}
+
+.share-modal .modal-title i {
+    font-size: 1.8rem;
+    background: linear-gradient(90deg, #fff, #e0e0e0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.share-modal .btn-close {
+    position: relative;
+    z-index: 2;
+    opacity: 0.7;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.share-modal .btn-close:hover {
+    opacity: 1;
+    transform: rotate(180deg) scale(1.1);
+}
+
+.share-modal .modal-body {
+    padding: 2rem;
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0.05) 0%,
+            rgba(255, 255, 255, 0.02) 100%);
+}
+
+.share-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.share-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.share-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0.1),
+            rgba(255, 255, 255, 0));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+}
+
+.share-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0.2),
+            transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+}
+
+.share-btn:hover {
+    transform: translateY(-3px);
+    box-shadow:
+        0 8px 16px rgba(0, 0, 0, 0.2),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.share-btn:hover::before,
+.share-btn:hover::after {
+    opacity: 1;
+}
+
+.share-btn:active {
+    transform: translateY(-1px);
+}
+
+.share-btn i {
+    font-size: 1.4rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.share-btn.whatsapp {
+    background: linear-gradient(90deg, #25D366, #128C7E);
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.share-btn.facebook {
+    background: linear-gradient(90deg, #1877F2, #0D47A1);
+    box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3);
+}
+
+.share-btn.twitter {
+    background: linear-gradient(90deg, #000000, #1DA1F2);
+    box-shadow: 0 4px 15px rgba(29, 161, 242, 0.3);
+}
+
+.share-btn.linkedin {
+    background: linear-gradient(90deg, #0A66C2, #004182);
+    box-shadow: 0 4px 15px rgba(10, 102, 194, 0.3);
+}
+
+.share-btn.copy {
+    background: linear-gradient(90deg, #6c757d, #495057);
+    box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+    grid-column: span 3;
+    font-size: 1.1rem;
+    padding: 1.25rem;
+}
+
+.share-btn.copy i {
+    font-size: 1.6rem;
+}
+
+@media (max-width: 768px) {
+    .share-options {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .share-btn.copy {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 480px) {
+    .share-modal {
+        width: 100%;
+        margin: 1rem;
+        border-radius: 8px;
+    }
+
+    .share-options {
+        grid-template-columns: 1fr;
+    }
+
+    .share-btn.copy {
+        grid-column: span 1;
+    }
+
+    .share-modal .modal-header {
+        padding: 1.25rem;
+    }
+
+    .share-modal .modal-body {
+        padding: 1.5rem;
+    }
+
+    .share-modal .modal-title {
+        font-size: 1.2rem;
+    }
+
+    .share-modal .modal-title i {
+        font-size: 1.6rem;
+    }
+}

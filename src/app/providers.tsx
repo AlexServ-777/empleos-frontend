@@ -1,13 +1,13 @@
 "use client";
-import NavBar from "@/components/generales/navBar";
+import NavBar from "@/components/1generales/navBar";
 import { urlBackGlobal } from "@/constants/urls";
 import React, { useState, createContext, useEffect } from "react";
 import "@/utils/interceptorFETCH";
-import AlertMessage from "@/components/generales/alertMessage";
-import Footer from "@/components/generales/footer";
-import Reports from "@/components/generales/reports";
+import AlertMessage from "@/components/1generales/alertMessage";
+import Footer from "@/components/1generales/footer";
+import Reports from "@/components/1generales/reports";
 
-export const Context = createContext();
+export const Context = createContext<any>({});
 
 export function Providers({ children }) {
     const [session, setSession] = useState(false);
@@ -23,7 +23,7 @@ export function Providers({ children }) {
         type: "success",
         show: "none"
     })  //alerta pequena
-
+    
     useEffect(() => {
         // Importar Bootstrap solo en el cliente
         import('bootstrap/dist/js/bootstrap.bundle.min.js');
@@ -50,7 +50,7 @@ export function Providers({ children }) {
         obtenerCSRF();
     }, []); //ejecucucion unica global
 
-    useEffect(() => {
+    useEffect(() => {   //funciona del message
         if (alertData.show === "none" && alertData.message != null) {
             setAlertData(prev => ({
                 ...prev,
@@ -58,7 +58,7 @@ export function Providers({ children }) {
             }));
         }
     }, [alertData.message])
-    useEffect(() => {
+    useEffect(() => {   
         if (alertData.show === "flex") {
             setTimeout(() => {
                 setAlertData(prev => ({

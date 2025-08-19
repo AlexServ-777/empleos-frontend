@@ -1,0 +1,39 @@
+.container_share_item{
+    z-index: 9999;
+    position: fixed;
+    width: 50%;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.7);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & .item{
+        position: relative;
+        overflow: auto;
+        width: 60%;
+        height: 70%;
+        
+        & .btn_close{
+            all: unset;
+            font-size: 2.5rem;
+            position: absolute;
+            cursor: pointer;
+            top: 10;
+            right: 25;
+            z-index: 2;
+        }
+    }
+    
+}
+
+@media (max-width:992px) {
+    .container_share_item{
+        display: none;
+    }
+}

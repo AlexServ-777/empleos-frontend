@@ -52,8 +52,8 @@ export default function Reports() {
                 <div className="radio-buttons-container">
                     {type_comment_reports.map((item, i) => (
                         <div className="radio-button" key={i}>
-                            <input name="report" id={i} className="radio-button__input" type="radio" required onChange={(e)=>setSelected(e.target.value)} defaultValue={item}/>
-                            <label htmlFor={i} className="radio-button__label">
+                            <input name="report" id={i.toString()} className="radio-button__input" type="radio" required onChange={(e)=>setSelected(e.target.value)} defaultValue={item}/>
+                            <label htmlFor={i.toString()} className="radio-button__label">
                                 <span className="radio-button__custom"></span>
                                 {item.replace(/_/g, ' ')}
                             </label>

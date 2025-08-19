@@ -5,7 +5,7 @@ import { getEstadosFromApi } from "@/utils/locationUtils";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import PhoneInput from "react-phone-number-input";
 import Swal from "sweetalert2";
-import { SelectPasantias } from "@/components/generales/select-forms";
+import { SelectPasantias } from "@/components/1generales/select-forms";
 
 export default function FormsPasantias({pasantia, refreshPasantia, userInf}){
     const formRef = useRef(null);

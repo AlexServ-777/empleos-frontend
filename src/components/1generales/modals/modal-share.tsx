@@ -1,9 +1,7 @@
 "use client"
-
 import { urlFront } from "@/constants/urls";
 
-export default function Modal_Share({showShareModal, setShowShareModal, tipo, data}){
-
+export default function Modal_Share({data, tipo, showShareModal, setShowShareModal}){
     const handleShare = async (platform) => {
         const obtener_tipo_id = ()=>{
             if(tipo==='empleo') return data.id_empleo;

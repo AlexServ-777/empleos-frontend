@@ -1,5 +1,5 @@
 "use client"
-import { SelectServicios } from "@/components/generales/select-forms";
+import { SelectServicios } from "@/components/1generales/select-forms";
 import { urlBackGlobal } from "@/constants/urls";
 import { Context } from "@/app/providers";
 import { getEstadosFromApi } from "@/utils/locationUtils";

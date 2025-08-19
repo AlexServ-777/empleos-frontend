@@ -1,6 +1,8 @@
 /*Movil*/
 .container_movil {
     & .movil {
+        margin-bottom: 1rem;
+        width: 100%;
         border-radius: 15px;
         background-image: linear-gradient(180deg, rgba(7, 46, 51, 1) 0%, rgba(44, 14, 51, 0.8) 87%);
     }

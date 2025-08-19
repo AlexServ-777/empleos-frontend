@@ -15,7 +15,7 @@ export default function Nav_Pc(){
               </Link>
             </h2>
           </div>
-          <div className="container col-6" style={{zIndex:9999}}>
+          <div className="container col-6" style={{zIndex:"50"}}>
             <ul style={{display:"flex", gap:60}} className="my-auto mx-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <Link href="/empleos/all">
