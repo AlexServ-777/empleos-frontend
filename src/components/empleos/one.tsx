@@ -50,70 +50,73 @@ export default function OneEmpleo({ empleo, favorito, setFavorito, one_item_ref,
     }
     return (
         <>
-        <section className="containerOne" ref={one_item_ref}>
-            <section className="container_head">
-                <div className="header">
-                    <h1>{empleo.titulo}</h1>
-                    <button className="d-lg-none btn_close"
-                        onClick={() => {
-                            one_item_ref.current.classList.remove('show');
-                            setShowEmpleo({});
-                        }}>
-                        <i className="bi bi-x-lg"></i>
-                    </button>
-                </div>
+            <section className="containerOne" ref={one_item_ref}>
+                <section className="container_head">
+                    <div className="header">
+                        <div className="d-flex flex-column">
+                            <h1>{empleo.titulo}</h1>
+                            <p className="user_name"><i className="bi bi-person-fill">&nbsp;</i>{empleo.user_name}</p>
+                        </div>
+                        <button className="d-lg-none btn_close"
+                            onClick={() => {
+                                one_item_ref.current.classList.remove('show');
+                                setShowEmpleo({});
+                            }}>
+                            <i className="bi bi-x-lg"></i>
+                        </button>
+                    </div>
 
-                <div className="actions">
-                    <button className="action-btn" data-tooltip="Contactar por WhatsApp" onClick={() => window.open(`https://wa.me/${empleo.num_telf}`, '_blank')}>
-                        <i className="bi bi-whatsapp"></i>
-                    </button>
-                    <button className={`action-btn ${favorito ? 'mark' : ''}`} data-tooltip={favorito ? "Quitar de favoritos" : "Agregar a favoritos"} onClick={fun_set_fav}>
-                        <i className={`bi bi-bookmark-heart${favorito ? ' set-fav' : ' del-fav'}`}></i>
-                    </button>
-                    <button className="action-btn" data-tooltip="Compartir" onClick={() => setShowShareModal(true)}>
-                        <i className="bi bi-share-fill"></i>
-                    </button>
-                    <button className="action-btn" data-tooltip="Reportar" onClick={
-                        () => setReportData({
-                            id: empleo.id_empleo,
-                            type: 'empleo',
-                            message: null,
-                            show: true,
-                        })}>
-                        <i className="bi bi-flag"></i>
-                    </button>
-                </div>
+                    <div className="actions">
+                        <button className="action-btn" data-tooltip="Contactar por WhatsApp" onClick={() => window.open(`https://wa.me/${empleo.num_telf}`, '_blank')}>
+                            <i className="bi bi-whatsapp"></i>
+                        </button>
+                        <button className={`action-btn ${favorito ? 'mark' : ''}`} data-tooltip={favorito ? "Quitar de favoritos" : "Agregar a favoritos"} onClick={fun_set_fav}>
+                            <i className={`bi bi-bookmark-heart${favorito ? ' set-fav' : ' del-fav'}`}></i>
+                        </button>
+                        <button className="action-btn" data-tooltip="Compartir" onClick={() => setShowShareModal(true)}>
+                            <i className="bi bi-share-fill"></i>
+                        </button>
+                        <button className="action-btn" data-tooltip="Reportar" onClick={
+                            () => setReportData({
+                                id: empleo.id_empleo,
+                                type: 'empleo',
+                                message: null,
+                                show: true,
+                            })}>
+                            <i className="bi bi-flag"></i>
+                        </button>
+                    </div>
+                </section>
+
+                <section className="body_one">
+                    <div className="section">
+                        <h3 className="section-title">Descripción</h3>
+                        <p className="info">{empleo.descripcion}</p>
+                    </div>
+                    <div className="section">
+                        <h3 className="section-title">Requisitos</h3>
+                        <p className="info">{empleo.requisitos}</p>
+                    </div>
+                    <div className="section">
+                        <span className="badge">{empleo.salario ? `Salario: ${empleo.salario}` : 'Salario no definido'}</span>
+                        <span className="badge">{empleo.modalidad}</span>
+                    </div>
+                    <div className="section">
+                        <h3 className="section-title">Ciudad</h3>
+                        <p className="info">{empleo.ciudad}</p>
+                    </div>
+                    <div className="section">
+                        <h3 className="section-title">Ubicación</h3>
+                        <p className="info">{empleo.ubicacion ? empleo.ubicacion : "No Definido"}</p>
+                    </div>
+                    <div className="section">
+                        <h3 className="section-title">Número de Teléfono</h3>
+                        <p className="info">{empleo.num_telf}</p>
+                    </div>
+                </section>
             </section>
 
-            <section className="body_one">
-                <div className="section">
-                    <h3 className="section-title">Descripción</h3>
-                    <p className="info">{empleo.descripcion}</p>
-                </div>
-                <div className="section">
-                    <h3 className="section-title">Requisitos</h3>
-                    <p className="info">{empleo.requisitos}</p>
-                </div>
-                <div className="section">
-                    <span className="badge">{empleo.salario ? `Salario: ${empleo.salario}` : 'Salario no definido'}</span>
-                    <span className="badge">{empleo.modalidad}</span>
-                </div>
-                <div className="section">
-                    <h3 className="section-title">Ciudad</h3>
-                    <p className="info">{empleo.ciudad}</p>
-                </div>
-                <div className="section">
-                    <h3 className="section-title">Ubicación</h3>
-                    <p className="info">{empleo.ubicacion ? empleo.ubicacion : "No Definido"}</p>
-                </div>
-                <div className="section">
-                    <h3 className="section-title">Número de Teléfono</h3>
-                    <p className="info">{empleo.num_telf}</p>
-                </div>
-            </section>
-        </section>
-        
-        <Modal_Share showShareModal={showShareModal} setShowShareModal={setShowShareModal} tipo={"empleo"} data={empleo} />
+            <Modal_Share showShareModal={showShareModal} setShowShareModal={setShowShareModal} tipo={"empleo"} data={empleo} />
         </>
     );
 }

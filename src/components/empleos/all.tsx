@@ -9,20 +9,18 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import End_message_scroll from "../1generales/scrollable_tools/end_message";
 import Hamster_loader_scroll from "../1generales/scrollable_tools/loader_scroll";
 
-export default function MostrarEmpleos({ empleos }) {
+export default function MostrarEmpleos({ empleos, pages_availables, limit_rows }) {
     const { csrf } = useContext(Context);
 
     const [empleosListOld, setEmpleosListOld] = useState(empleos); //mantener props de empleos intacto
-
     const [empleosList, setEmpleosList] = useState(empleos); //lista de empleos que se muestran con map
     const [showEmpleo, setShowEmpleo] = useState<any>({}); //mostrar detalles del empleo
-    const [count_page, set_count_page] = useState(2); //contador de paginacion de empleos (original) 2 pq props ya es la 1
+    const [count_page, set_count_page] = useState(0); //recorreta el array de pages_availables
 
-    const [is_searching, set_is_searching] = useState(false); //si se esta buscando o no
     const [count_page_search, set_count_page_search] = useState(2); //contador de paginacion del buscador
     const [content_search, set_content_search] = useState(''); //contenido del buscador
 
-    const [has_more, set_has_more] = useState(true);
+    const [has_more, set_has_more] = useState(true); //para cargar o detener el scroll
 
     const [favorito, setFavorito] = useState(false); //manejo de favoritos para cada item
 
@@ -30,19 +28,19 @@ export default function MostrarEmpleos({ empleos }) {
 
     useEffect(() => { 
         if(!csrf) return;
-        if(empleosList.length<6&&empleosList.length>0){
+        if(empleosList.length<=limit_rows&&empleosList.length>0){
             setShowEmpleo(empleosList[0]);
         }
      }, [empleosList,csrf]); //muetra el primer empleo al renderizar
 
     useEffect(() => {
         set_has_more(true);
-        if (!is_searching) {
+        if (!content_search) {
             setEmpleosList(empleosListOld); //setear la lista original si no se esta buscando
         }
         else {
             const country = Cookies.get('country');
-            fetch(`${urlBackGlobal}/api/empleos-c/search/${country}?content=${content_search}&page=1`) //tomar la primera paginacion
+            fetch(`${urlBackGlobal}/api/empleos-c/search/${country}?search=${content_search}&page=1&limit=${limit_rows}`) //tomar la primera paginacion
                 .then(res => res.json()).then(items => {
                     if (Array.isArray(items)) {
                         setEmpleosList(items);  //si hay items setear la lista
@@ -51,9 +49,9 @@ export default function MostrarEmpleos({ empleos }) {
                         setEmpleosList([]); //si no hay no mostrar nada
                         set_has_more(false);//ya que no hay nada setear false para prevenir errores del scroll
                     }
-                })
+                });
+            set_count_page_search(2);
         }
-        set_count_page_search(2);//esto se ejecuta cada vez que se cambia la busqueda. 2 pq 1 es el primer fetch
 
     }, [content_search]) //cada vez que cambia la busqueda
 
@@ -89,13 +87,13 @@ export default function MostrarEmpleos({ empleos }) {
 
     const next_page_original = () => {
         const country = Cookies.get('country');
-        fetch(`${urlBackGlobal}/api/empleos-c/getPublic/${country}?page=${count_page}`)
+        fetch(`${urlBackGlobal}/api/empleos-c/search/${country}?page=${pages_availables[count_page]}&limit=${limit_rows}&search=`)
             .then(res => res.json())
             .then((new_items) => {
-                if (Array.isArray(new_items)) {
+                if (Array.isArray(new_items)&&count_page<pages_availables.length) {
                     setEmpleosList(prev => [...prev, ...new_items]); //setear la lista de empleos con los nuevos items
                     setEmpleosListOld(prev => [...prev, ...new_items]);   //esto es para guardar los items cargados del scroll en un array de no busqueda, para tener cargados los items scrolleados
-                    set_count_page(count_page + 1);   //aumentar en 1 en la siguiente vuelta
+                    set_count_page(count_page+1);
                 }
                 else {
                     set_has_more(false); //setear esta var para definir que esta vacion
@@ -104,7 +102,7 @@ export default function MostrarEmpleos({ empleos }) {
     }
     const next_page_search = () => {    //la misma weba de arriba ^
         const country = Cookies.get('country');
-        fetch(`${urlBackGlobal}/api/empleos-c/search/${country}?content=${content_search}&page=${count_page_search}`)
+        fetch(`${urlBackGlobal}/api/empleos-c/search/${country}?search=${content_search}&page=${count_page_search}&limit=${limit_rows}`)
             .then(res => res.json()).then((new_items) => {
                 if (Array.isArray(new_items)) {
                     setEmpleosList(prev => [...prev, ...new_items]);
@@ -118,14 +116,14 @@ export default function MostrarEmpleos({ empleos }) {
         <section className="all-items">
             <div className="search-filters-container row mb-2">
                 <div>
-                    <Buscador set_is_searching={set_is_searching} set_content_search={set_content_search} />
+                    <Buscador set_content_search={set_content_search} />
                 </div>
             </div>
             <div className="containerUl">
                 <ul id="scrollableUl">
                     <InfiniteScroll
                         dataLength={empleosList.length}
-                        next={!is_searching ? next_page_original : next_page_search}
+                        next={!content_search ? next_page_original : next_page_search}
                         scrollableTarget="scrollableUl"
                         hasMore={has_more}
                         loader={<Hamster_loader_scroll/>}
@@ -133,10 +131,10 @@ export default function MostrarEmpleos({ empleos }) {
                         {empleosList.length > 0 ? empleosList.map((empleo, index) => (
                             <React.Fragment key={empleo.id_empleo}>
                                 <li className={index === 0 ? "selected" : ""} onClick={(e) => {
-                                    document.querySelectorAll('.containerUl li').forEach((li) => li.classList.remove('selected'));
-                                    e.currentTarget.classList.add('selected');
-                                    setShowEmpleo(empleo);
-                                    one_item_ref.current.classList.add('show');
+                                    document.querySelectorAll('.containerUl li').forEach((li) => li.classList.remove('selected')); //eliminar la seleccion sombria de todas los items
+                                    e.currentTarget.classList.add('selected');  //agregar la clase seleccion para sombrear el item
+                                    setShowEmpleo(empleo);  //mostrar el empleo
+                                    one_item_ref.current.classList.add('show'); //establecer el show (para version movil)
                                 }}>
                                     <div className="row-cols-12 row-cols-md-12">
                                         <div className="col">

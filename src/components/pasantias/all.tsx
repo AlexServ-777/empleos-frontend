@@ -9,27 +9,28 @@ import Cookies from "js-cookie";
 import End_message_scroll from "../1generales/scrollable_tools/end_message";
 import Hamster_loader_scroll from "../1generales/scrollable_tools/loader_scroll";
 
-export default function MostrarPasantias({ pasantias }) {
+export default function MostrarPasantias({ pasantias, pages_availables, limit }) {
     const { csrf } = useContext(Context);
 
-    const [showPasantia, setShowPasantia] = useState<any>({});
-    const [pasantiasList_old, setPasantiasList_old] = useState(pasantias);
+    const [showPasantia, setShowPasantia] = useState<any>({}); //para mostrar la pasantia
+    const [pasantiasList_old, setPasantiasList_old] = useState(pasantias); //lista que se restaurara cada vez que no este en modo busqueda
     const [pasantiasList, setPasantiasList] = useState(pasantias);
 
-    const [count_page, set_count_page] = useState(2); //contador de paginacion de los datos originales (2 ya que 1 esta en el ssr)
+    const [count_page, set_count_page] = useState(0); //contador de paginacion, para los indices o paginas ya creadas en pages_availabes
+
     const [count_page_search, set_count_page_search] = useState(2); //contador de paginacion de busqueda (2 ya que se usara directo en el scroll y el 1 esta en el fetch del efecto de cambio de busqueda)
 
     const [content_search, set_content_search] = useState(''); //contenido del input search
-    const [is_searching, set_is_searching] = useState(false);   //si se esta buscando o no
 
     const [favorito, setFavorito] = useState(false);    //establecer favoritos de cada uno
 
     const one_item_ref = useRef(null); //referencia el contenedor donde se muestra el item
     
-    useEffect(() => {
+    useEffect(() => { //mostrar la primera pasantia
         if (!csrf) return;
-        if(pasantiasList.length<6&&pasantiasList.length>0) setShowPasantia(pasantiasList[0]);
+        if(pasantiasList.length<=limit&&pasantiasList.length>0) setShowPasantia(pasantiasList[0]);
     }, [csrf, pasantiasList]);
+    
     useEffect(() => { //funcion para ver si es favorito un item seleccionado
         const get_is_favorite = async () => {
             const pasantia = showPasantia;
@@ -60,14 +61,15 @@ export default function MostrarPasantias({ pasantias }) {
         get_is_favorite();
     }, [showPasantia]);
 
+    //cada que cambia content_search para restaurar busquedas
     useEffect(() => {
         set_has_more(true);
         if (!content_search) {
-            setPasantiasList(pasantiasList_old);
+            setPasantiasList(pasantiasList_old); //si no esta en modo busqueda restaurar el array principal
         }
         else {
             const country = Cookies.get('country');
-            fetch(`${urlBackGlobal}/api/pasantias-c/search/${country}?content=${content_search}&page=1`)
+            fetch(`${urlBackGlobal}/api/pasantias-c/search/${country}?search=${content_search}&page=1&limit=${limit}`)
                 .then(res => res.json())
                 .then(new_items => {
                     if (Array.isArray(new_items)) {
@@ -83,11 +85,12 @@ export default function MostrarPasantias({ pasantias }) {
     }, [content_search])
 
     const [has_more, set_has_more] = useState(true); //para la lib de react del scroll, si es true seguira scrollenado de lo contrario no (esta controlado en los metodos next de abajo);
+   
     const next_pagination_origin = () => { //siguiente paginacion para los items originales
         const country = Cookies.get('country'); //obtener el pais de las cookies
-        fetch(`${urlBackGlobal}/api/pasantias-c/getPublic/${country}?page=${count_page}`) //llamada a la api
+        fetch(`${urlBackGlobal}/api/pasantias-c/search/${country}?page=${pages_availables[count_page]}&limit=${limit}&search=`) //llamada a la api
             .then(res => res.json()).then(new_items => {
-                if (Array.isArray(new_items)) { //si es array, ya que la api devuelve object 404 si no se encontro items
+                if (Array.isArray(new_items)&&count_page<pages_availables.length) { //si es array, ya que la api devuelve object 404 si no se encontro items
                     setPasantiasList(prev => [...prev, ...new_items]); //sumar a la lista
                     setPasantiasList_old(prev => [...prev, ...new_items]); //par mantener los items originales
                     set_count_page(count_page + 1); //subir de paginacikon
@@ -99,7 +102,7 @@ export default function MostrarPasantias({ pasantias }) {
     }
     const next_pagination_search = () => { //siguiente paginacion de la busqueda
         const country = Cookies.get('country'); //pais
-        fetch(`${urlBackGlobal}/api/pasantias-c/search/${country}?content=${content_search}&page=${count_page_search}`) //llamada a la api de search
+        fetch(`${urlBackGlobal}/api/pasantias-c/search/${country}?search=${content_search}&page=${count_page_search}&limit=${limit}`) //llamada a la api de search
             .then(res => res.json())
             .then(new_items => {
                 //el mismo contexto del anterior metodo ^
@@ -115,7 +118,7 @@ export default function MostrarPasantias({ pasantias }) {
         <section className="all-items">
             <div className="search-filters-container row mb-2">
                 <div>
-                    <Buscador set_content_search={set_content_search} set_is_searching={set_is_searching} />
+                    <Buscador set_content_search={set_content_search} />
                 </div>
             </div>
 
@@ -123,7 +126,7 @@ export default function MostrarPasantias({ pasantias }) {
                 <ul id="scrollableUl">
                     <InfiniteScroll dataLength={pasantiasList.length}
                         hasMore={has_more}
-                        next={!is_searching ? next_pagination_origin : next_pagination_search}
+                        next={!content_search ? next_pagination_origin : next_pagination_search}
                         loader={<Hamster_loader_scroll/>}
                         endMessage={<End_message_scroll type={pasantiasList.length>0?"final":"empty"}/>}
                         scrollableTarget="scrollableUl">

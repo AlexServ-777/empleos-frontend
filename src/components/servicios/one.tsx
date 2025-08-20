@@ -51,7 +51,10 @@ export default function OneServicio({ servicio, favorito, setFavorito, one_item_
         <section className="containerOne" ref={one_item_ref}>
             <section className="container_head">
                 <div className="header">
-                    <h1>{servicio.titulo}</h1>
+                    <div className="d-flex flex-column">
+                        <h1>{servicio.titulo}</h1>
+                        <p className="user_name"><i className="bi bi-person-fill"></i>&nbsp;{servicio.user_name}</p>
+                    </div>
                     <button className="btn_close d-lg-none"
                         onClick={() => {
                             one_item_ref.current.classList.remove('show');
