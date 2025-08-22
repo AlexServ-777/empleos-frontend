@@ -8,9 +8,9 @@ export default function Nav_Movil({ isMenuOpen, setMenuOpen }) {
             <Menu_interno isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} />
 
             {/*Menu*/}
-            <div className="movil d-flex justify-content-center align-items-center d-md-none">
+            <div className="movil d-flex justify-content-between align-items-center d-md-none" style={{padding:"0rem 0.3rem 0rem 0.3rem"}}>
                 <img src="/logoJobGet.webp" style={{ height: "4rem", borderRadius: "30px" }} />
-                <Link href="/" className="text-decoration-none m-auto text-warning homeLinkMovil">
+                <Link href="/" className="text-decoration-none">
                     <span className="fs-1">JobGet </span>
                     <span className="fs-5">Lat</span>
                 </Link>

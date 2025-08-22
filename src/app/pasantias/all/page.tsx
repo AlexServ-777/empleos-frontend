@@ -18,7 +18,7 @@ export default async function Page(){
     const res_count = await fetch(process.env.url_front+`/back/api/pasantias-c/count-pasantias/${pais}?search=`);
     const count_register = await res_count.json();
 
-    const limit = 2;
+    const limit = 10;
     const total_pages = Math.ceil(count_register/limit);
     const init_page = random_int(1, total_pages);
     const response = await fetch(process.env.url_front+`/back/api/pasantias-c/search/${pais}?page=${init_page}&limit=${limit}&search=`, {

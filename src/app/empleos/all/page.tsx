@@ -17,7 +17,7 @@ export default async function Page(){
     const res_total_rows = await fetch(process.env.url_front+`/back/api/empleos-c/count-empleos/${pais}?search=`); //contar la cantidad de registros hay dado el pais y busqueda null osea todos los registros
     const total_rows = await res_total_rows.json(); 
     
-    const limit_rows = 2; //la cantidad de registro que tendra cada pagina
+    const limit_rows = 10; //la cantidad de registro que tendra cada pagina
     const total_pages = Math.ceil(total_rows/limit_rows); //la cantidad de paginas que habra
 
     const init_page = random_int(1, total_pages); //obtener un numero random en el rango de (cantidad de paginas a 1)

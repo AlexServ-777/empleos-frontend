@@ -17,7 +17,7 @@ export default async function Page() {
         const res_count = await fetch(process.env.url_front+ `/back/api/servicios-c/count-servicios/${pais}?search=`);
         const total_rows = await res_count.json();
 
-        const limit = 2;
+        const limit = 10;
         const total_pages = Math.ceil(total_rows/limit);
 
         const init_page = random_int(1,total_pages);
@@ -33,7 +33,6 @@ export default async function Page() {
             }
         }
         suffle_array(pages_availables);
-        console.log(pages_availables)
         return <MostrarServicios servicios={servicios} pages_availables={pages_availables} limit={limit} />
     }
     catch {

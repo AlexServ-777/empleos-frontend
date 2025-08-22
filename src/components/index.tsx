@@ -13,17 +13,17 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Hamster_loader_scroll from "./1generales/scrollable_tools/loader_scroll";
 import End_message_scroll from "./1generales/scrollable_tools/end_message";
 
-export default function Home({ items_ssr }) {
+export default function Home({ items_ssr, page_ava_emp, page_ava_pas, page_ava_ser, limit }) {
     const { csrf } = useContext(Context);
     const one_item_ref = useRef<HTMLDivElement>(null);
 
     const [items, set_items] = useState(items_ssr);
     const [items_origin, set_items_origin] = useState(items_ssr);
-    const [count_page, set_count_page] = useState(2);
+    const [count_page, set_count_page] = useState(0);
 
     const [content_search, set_content_search] = useState('');
-    const [is_searching, set_is_searching] = useState(false);
     const [count_page_search, set_count_page_search] = useState(2);
+
     const [has_more, set_has_more] = useState(true);
 
     const [showItem, setShowItem] = useState<any>({});
@@ -113,7 +113,7 @@ export default function Home({ items_ssr }) {
     }, [showItem]);
 
     useEffect(() => {
-        if(Object.entries(showItem).length>0) one_item_ref.current.classList.add('show');
+        if (Object.entries(showItem).length > 0) one_item_ref.current.classList.add('show');
     }, [showItem]);
     //renderizar el componente ONE respectivo de cada tipo de item
     const renderItem = () => {
@@ -127,8 +127,8 @@ export default function Home({ items_ssr }) {
     //mostrar el primer item
     useEffect(() => {
         const id = params.get('id');
-        const width_window= window.innerWidth; //para no mostrar el item en modo pc
-        if (!id && csrf && items.length > 0&&width_window>992) {
+        const width_window = window.innerWidth; //para no mostrar el item en modo pc
+        if (!id && csrf && items.length > 0 && width_window > 992) {
             setTypemItem(items[0].type);
             setShowItem(items[0]);
         }
@@ -137,25 +137,17 @@ export default function Home({ items_ssr }) {
     //cada que cambia la busqueda de items
     useEffect(() => {
         set_has_more(true);
-        if (!is_searching) {
+        if (!content_search) {
             set_items(items_origin);
         }
         else {
-            //se ejecuta cada vez que issearchin sea false, osea no este en modo busqueda, y se hace el primer fetch
+            //se ejecuta cada vez que content search cambiey tenga contenid, es decir que se esta en modo busqueda
             const fetch_search = async () => {
-                const country = Cookies.get('country');
+                const empleos: any[] = await fetch_item_pagination(1, content_search, limit, 'empleo');
+                const pasantias: any[] = await fetch_item_pagination(1, content_search, limit, 'pasantia');
+                const servicios: any[] = await fetch_item_pagination(1, content_search, limit, 'servicio');
 
-                const res_emp = await fetch(`${urlBackGlobal}/api/empleos-c/search/${country}?page=${1}&content=${content_search}`);
-                const new_empleos = await res_emp.json();
-                const res_pas = await fetch(`${urlBackGlobal}/api/pasantias-c/search/${country}?page=${1}&content=${content_search}`);
-                const new_pasantias = await res_pas.json();
-                const res_ser = await fetch(`${urlBackGlobal}/api/servicios-c/search/${country}?page=${1}&content=${content_search}`);
-                const new_servicios = await res_ser.json();
-                if (Array.isArray(new_empleos) || Array.isArray(new_pasantias) || Array.isArray(new_servicios)) {
-                    const empleos = Array.isArray(new_empleos) ? new_empleos.map((empleo) => { return { ...empleo, type: "empleo", id: empleo.id_empleo } }) : [];
-                    const pasantias = Array.isArray(new_pasantias) ? new_pasantias.map((pasantia) => { return { ...pasantia, type: "pasantia", id: pasantia.id_pasantia } }) : [];
-                    const servicios = Array.isArray(new_servicios) ? new_servicios.map((servicio) => { return { ...servicio, type: "servicio", id: servicio.id_servicio } }) : [];
-
+                if (empleos.length > 0 || pasantias.length > 0 || servicios.length > 0) {
                     const items_search = [...empleos, ...pasantias, ...servicios];
                     suffle_array(items_search);
                     set_items(items_search);
@@ -172,29 +164,14 @@ export default function Home({ items_ssr }) {
 
     //paginacion para la lista original index
     const next_page_origin = async () => {  //siguiente paginacion de la lista orignal
-        const country = Cookies.get('country');
-
-        const res_emp = await fetch(`${urlBackGlobal}/api/empleos-c/getPublic/${country}?page=${count_page}`);
-        const new_empleos = await res_emp.json();
-        const res_pas = await fetch(`${urlBackGlobal}/api/pasantias-c/getPublic/${country}?page=${count_page}`);
-        const new_pasantias = await res_pas.json();
-        const res_ser = await fetch(`${urlBackGlobal}/api/servicios-c/getPublic/${country}?page=${count_page}`);
-        const new_servicios = await res_ser.json();
-
-        if (Array.isArray(new_empleos) || Array.isArray(new_pasantias) || Array.isArray(new_servicios)) { //por lo menos uno debe ser array para concatenar a la lista existente
-            //agregarle los atributos extras correspondientes
-            const empleos = new_empleos.map((empleo) => { return { ...empleo, type: "empleo", id: empleo.id_empleo } });
-            const pasantias = new_pasantias.map((pasantia) => { return { ...pasantia, type: "pasantia", id: pasantia.id_pasantia } });
-            const servicios = new_servicios.map((servicio) => { return { ...servicio, type: "servicio", id: servicio.id_servicio } });
-
-            const new_items = [ //concatenar los 3 items en uno solo
-                ...Array.isArray(empleos) ? empleos : [],   //si contiene algo concatenar ese algo, si no es asi entonces sera un vacio, osea no concatenar nada
-                ...Array.isArray(pasantias) ? pasantias : [],   //^
-                ...Array.isArray(servicios) ? servicios : [],   //^
-            ]
+        const empleos: any[] = await fetch_item_pagination(page_ava_emp[count_page], '', limit, 'empleo');
+        const pasantias: any[] = await fetch_item_pagination(page_ava_pas[count_page], '', limit, 'pasantia');
+        const servicios: any[] = await fetch_item_pagination(page_ava_ser[count_page], '', limit, 'servicio');
+        if (empleos.length > 0 || pasantias.length > 0 || servicios.length > 0) { //por lo menos uno debe contener algo para seguir scrolleando
+            const new_items = [...empleos, ...pasantias, ...servicios];   //concatenar lo items en un solo array
             suffle_array(new_items); // barajear el nuevo array
-            set_items(prev => [...prev, ...new_items]); //concatenar oficialmente a la lista
-            set_items_origin(prev => [...prev, ...new_items]);
+            set_items(prev => [...prev, ...new_items]); //concatenar oficialmente a la lista al estado items
+            set_items_origin(prev => [...prev, ...new_items]);  //respaldar estos items para cachear cuando se inicie y se salga de modo busqueda
             set_count_page(count_page + 1); //aumentar el contador (no se ejecuta si se va a else)
         }
         else {   //si ninguno contiene nada quiere decir que no hay mas items que scrollear asi que fin de la funcion
@@ -204,20 +181,10 @@ export default function Home({ items_ssr }) {
 
     //paginacion para las busquedas
     const next_page_search = async () => { //sigueinte paginacion de la lista de busqueda
-        const country = Cookies.get('country');
-
-        const res_emp = await fetch(`${urlBackGlobal}/api/empleos-c/search/${country}?page=${count_page_search}&content=${content_search}`);
-        const new_empleos = await res_emp.json();
-        const res_pas = await fetch(`${urlBackGlobal}/api/pasantias-c/search/${country}?page=${count_page_search}&content=${content_search}`);
-        const new_pasantias = await res_pas.json();
-        const res_ser = await fetch(`${urlBackGlobal}/api/servicios-c/search/${country}?page=${count_page_search}&content=${content_search}`);
-        const new_servicios = await res_ser.json();
-
-        if (Array.isArray(new_empleos) || Array.isArray(new_pasantias) || Array.isArray(new_servicios)) {
-            const empleos = Array.isArray(new_empleos) ? new_empleos.map((empleo) => { return { ...empleo, type: "empleo", id: empleo.id_empleo } }) : [];
-            const pasantias = Array.isArray(new_pasantias) ? new_pasantias.map((pasantia) => { return { ...pasantia, type: "pasantia", id: pasantia.id_pasantia } }) : [];
-            const servicios = Array.isArray(new_servicios) ? new_servicios.map((servicio) => { return { ...servicio, type: "servicio", id: servicio.id_servicio } }) : [];
-
+        const empleos = await fetch_item_pagination(count_page_search,content_search,limit,'empleo');
+        const pasantias = await fetch_item_pagination(count_page_search,content_search,limit,'pasantia');
+        const servicios = await fetch_item_pagination(count_page_search,content_search,limit,'servicio');
+        if (empleos.length>0||pasantias.length>0||servicios.length>0) {
             const _new_items = [...empleos, ...pasantias, ...servicios];
             suffle_array(_new_items);
             set_items(prev => [...prev, ..._new_items]);
@@ -230,7 +197,7 @@ export default function Home({ items_ssr }) {
     return (
         <section className="all-items">
             <div className="search-filters-container mb-2 row">
-                <Buscador set_content_search={set_content_search} set_is_searching={set_is_searching} />
+                <Buscador set_content_search={set_content_search} />
             </div>
             <div className={isShare ? `container_share_item` : null} onClick={() => setIsShare(false)}>
                 <div className="item" onClick={(e) => e.stopPropagation()}> {/* detenener el evento del boton de arriba ^*/}
@@ -242,7 +209,7 @@ export default function Home({ items_ssr }) {
                 <ul id="scrollableUl">
                     <InfiniteScroll
                         dataLength={items.length}
-                        next={!is_searching ? next_page_origin : next_page_search}
+                        next={!content_search ? next_page_origin : next_page_search}
                         hasMore={has_more}
                         loader={<Hamster_loader_scroll />}
                         endMessage={<End_message_scroll type={items.length > 0 ? "final" : "empty"} />}
@@ -290,4 +257,30 @@ export default function Home({ items_ssr }) {
             </div>
         </section>
     );
+}
+
+async function fetch_item_pagination(page: any, search: any, limit: number, type: string) {
+    const country = Cookies.get('country');
+    let items_result = [];
+    switch (type) {
+        case 'empleo': {
+            const res = await fetch(urlBackGlobal + `/api/empleos-c/search/${country}?page=${page}&limit=${limit}&search=${search}`);
+            const empleos = await res.json();
+            items_result = Array.isArray(empleos) ? empleos.map(empleo => ({ ...empleo, type: "empleo", id: empleo.id_empleo })) : [];
+            break;
+        }
+        case 'pasantia': {
+            const res = await fetch(urlBackGlobal + `/api/pasantias-c/search/${country}?page=${page}&limit=${limit}&search=${search}`);
+            const pasantias = await res.json();
+            items_result = Array.isArray(pasantias) ? pasantias.map(pasantia => ({ ...pasantia, type: "pasantia", id: pasantia.id_pasantia })) : [];
+            break;
+        }
+        case 'servicio': {
+            const res = await fetch(urlBackGlobal + `/api/servicios-c/search/${country}?page=${page}&limit=${limit}&search=${search}`);
+            const servicios = await res.json();
+            items_result = Array.isArray(servicios) ? servicios.map(servicio => ({ ...servicio, type: "servicio", id: servicio.id_servicio })) : [];
+            break;
+        }
+    }
+    return items_result;
 }

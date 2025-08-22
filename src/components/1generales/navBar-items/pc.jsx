@@ -35,7 +35,7 @@ export default function Nav_Pc(){
                   SERVICIOS
                 </Link>
               </li>
-              <li className="nav-item dropdown">
+              <li className="nav-item dropdown d-flex align-items-center">
                 <a className="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <i className="bi bi-three-dots"></i>
                   MAS
